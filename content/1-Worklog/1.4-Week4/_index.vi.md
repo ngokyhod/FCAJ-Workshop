@@ -8,9 +8,10 @@ pre: " <b> 1.4. </b> "
 
 ### Mục tiêu tuần 4:
 
-* Nghiên cứu cơ chế cấp quyền cho ứng dụng truy cập các dịch vụ AWS thông qua AWS IAM.
-* Phân tích rủi ro bảo mật của phương pháp sử dụng Access Key/Secret Access Key.
-* Thực hành triển khai giải pháp bảo mật nâng cao bằng cách áp dụng IAM Role lên EC2 Instance.
+*   Thực hành tự thiết lập hạ tầng mạng AWS Virtual Private Cloud (VPC) tùy chỉnh thay vì sử dụng mạng mặc định.
+*   Thiết kế và cấu hình kiến trúc mạng phân tầng bảo mật (Public và Private Subnet).
+*   Triển khai, gắn kết các luồng định tuyến mạng nâng cao thông qua Internet Gateway (IGW) và NAT Gateway.
+*   Thiết lập tường lửa bảo mật tầng máy chủ (Security Groups) và kiểm thử khả năng kết nối của hệ thống.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +34,52 @@ pre: " <b> 1.4. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Tiếp cận bài toán phân quyền cho ứng dụng khi tương tác với tài nguyên AWS <br> - Khởi tạo hạ tầng chuẩn bị: tạo EC2 Instance và S3 Bucket phục vụ bài thực hành</td>
+      <td class="col-task">- Nghiên cứu và thực hành Module 02-Lab03-03.1 - Create VPC. <br> - Tiến hành khởi tạo thành công VPC tùy chỉnh với dải địa chỉ IP tổng là 10.0.0.0/16.</td>
       <td class="col-date">11/05/2026</td>
       <td class="col-date">11/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Nghiên cứu phương pháp cấp quyền bằng Access Key: tạo IAM User và sinh cặp khóa Access Key / Secret Access Key</td>
+      <td class="col-task">- Thực hành Module 02-Lab03-03.2 - Create Subnet. <br> - Thực hiện phân chia kiến trúc mạng phân tầng bảo mật bao gồm các phân khu: Public Subnet và Private Subnet.</td>
       <td class="col-date">12/05/2026</td>
       <td class="col-date">12/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Thực hành cấu hình và sử dụng Access Key để ứng dụng trên EC2 kết nối và tương tác với dữ liệu trong S3 Bucket</td>
+      <td class="col-task">- Thực hành Module 02-Lab03-03.3 - Create an Internet Gateway. <br> - Thực hành Module 02-Lab03-03.4 - Create Route Table for Outbound Internet Routing via Internet Gateway. <br> - Triển khai và gắn kết Internet Gateway (IGW) vào VPC để mở đường ra Internet cho vùng Public thông qua bảng định tuyến Public Route Table (0.0.0.0/0).</td>
       <td class="col-date">13/05/2026</td>
       <td class="col-date">13/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Phân tích chuyên sâu rủi ro bảo mật khi lưu trữ Access Key trong mã nguồn <br> - Hiểu rõ tại sao không nên dùng Access Key tĩnh cho ứng dụng thực tế</td>
+      <td class="col-task">- Thực hành Module 02-Lab03-04.3 - Create NAT Gateway. <br> - Nghiên cứu bản chất và các trường hợp sử dụng thực tế để thực hành cấu hình NAT Gateway. <br> - Tiến hành cấu hình luồng định tuyến một chiều cho Private Route Table hướng ra NAT Gateway.</td>
       <td class="col-date">14/05/2026</td>
       <td class="col-date">14/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Nghiên cứu giải pháp an toàn hơn bằng IAM Role <br> - Tạo IAM Role mới với Policy phù hợp để truy cập S3 thay thế Access Key</td>
+      <td class="col-task">- Thực hành Module 02-Lab03-03.5 - Create security groups. <br> - Nghiên cứu các quy tắc Inbound/Outbound và tiến hành thiết lập chính sách bảo mật tầng Instance (Security Groups).</td>
       <td class="col-date">15/05/2026</td>
       <td class="col-date">15/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Gắn IAM Role vào EC2 Instance Profile <br> - Kiểm thử quyền truy cập từ EC2 lên S3 mà không cần cặp khóa tĩnh nào</td>
+      <td class="col-task">- Thực hành Module 02-Lab03-04.1 - Create EC2 Instances in Subnets. <br> - Khởi tạo các máy chủ ảo Amazon EC2 và phân bổ vào đúng các Subnet (Public/Private).</td>
       <td class="col-date">16/05/2026</td>
       <td class="col-date">16/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Đánh giá cơ chế Temporary Credentials tự động xoay vòng do IAM Role cung cấp <br> - Dọn dẹp toàn bộ tài nguyên đã tạo (EC2, S3, IAM) để tối ưu chi phí</td>
+      <td class="col-task">- Thực hành Module 02-Lab03-04.2 - Test connection. <br> - Thực hành Module 02-Lab03-04.5 - EC2 Instance Connect Endpoint. <br> - Thực hiện kiểm tra Ping, SSH vào các EC2 Instance để xác thực khả năng kết nối.</td>
       <td class="col-date">17/05/2026</td>
       <td class="col-date">17/05/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +87,8 @@ pre: " <b> 1.4. </b> "
 
 ### Kết quả đạt được tuần 4:
 
-* Hiểu rõ và phân biệt được sự khác nhau về mức độ an toàn giữa Access Key (Tĩnh) và IAM Role (Động).
-* Thành thạo kỹ năng khởi tạo, cấu hình và gắn IAM Role vào EC2 để cấp quyền truy cập tài nguyên an toàn.
-* Áp dụng thành công tiêu chuẩn bảo mật đám mây, loại bỏ việc lưu Hardcode credentials trong mã nguồn.
-* Hoàn thành quy trình dọn dẹp tài nguyên bài bản, bảo vệ tài khoản khỏi chi phí phát sinh ngoài ý muốn.
+*   Khởi tạo thành công VPC tùy chỉnh (lab-vpc-01) với dải địa chỉ tổng là 10.0.0.0/16.
+*   Phân chia thành công kiến trúc mạng phân tầng bảo mật bao gồm Public Subnet và Private Subnet.
+*   Triển khai và gắn kết chính xác Internet Gateway (IGW) vào VPC cho vùng Public.
+*   Cấu hình thành công NAT Gateway và luồng định tuyến một chiều cho Private Route Table, bảo vệ an toàn cho hệ thống máy chủ nội bộ.
+*   Thiết lập hoàn thiện các chính sách bảo mật tầng Instance (Security Groups) và kiểm thử kết nối hệ thống thành công.

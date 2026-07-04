@@ -1,4 +1,4 @@
----
+﻿---
 title: "Workshop"
 date: 2024-01-01
 weight: 5
@@ -6,26 +6,67 @@ chapter: false
 pre: " <b> 5. </b> "
 ---
 
-# ZeroBug Agent – Authentication and Authorization with Amazon Cognito and API Gateway
+# ZeroBug Agent – Deploy the system on AWS (Combined workshop)
 
 #### Overview
 
-**ZeroBug Agent** uses **Amazon Cognito** as the Identity Provider and **Amazon API Gateway** as the gateway protecting the entire REST API flow. This workshop guides you through setting up an end-to-end authentication system, from creating a User Pool and configuring an App Client to protecting APIs with a JWT Authorizer.
+This workshop guides **5 members** through deploying **one complete ZeroBug Agent system** on **the same AWS account**. Each member owns one infrastructure block; when finished, the parts are **combined** into one end-to-end flow.
 
-After completing this workshop, you will have a complete authentication flow:
+**Changes from the original design:**
+
+- **AI chat:** **Amazon Bedrock Mantle** (`openai.gpt-oss-120b`) — Lambda in `ap-southeast-1`, cross-region calls via NAT.
+- **AI context (compact RAG):** embed `cohere.embed-multilingual-v3` → store pgvector on RDS (`code_embeddings`) — `ContextBuilderLambda` runs before chat.
+- **DNS:** **no Route 53**; use the **default CloudFront domain** (`*.cloudfront.net`).
+- **Orchestration:** EC2 calls **Step Functions** directly (no SQS).
+
+#### Deployment flow (in order)
 
 ```
-User signs in → Amazon Cognito issues a JWT Token (IdToken)
-    → Front-end (Vite SPA / Electron) attaches the token to the Authorization header
-    → Amazon API Gateway validates the token via the Cognito Authorizer
-    → ALB → EC2 Spring Boot (Backend)
+Trí (IAM + VPC foundation)
+  → Kiệt (S3 + RDS + DB Secrets + pgvector + Bedrock model access)
+    → Toàn (EC2 Spring Boot + ALB)
+      → Hoa (Lambda + Step Functions + Bedrock Mantle / RAG)
+        → Trinh (Cognito + API Gateway + CloudFront + WAF)
 ```
 
-#### Content
+#### Production access flow
+
+```
+Client (Vite SPA / Electron)
+  → CloudFront (*.cloudfront.net)
+    → WAF (Web ACL)
+      → API Gateway (JWT Authorizer + Cognito)
+        → ALB (Public Subnet)
+          → EC2 Spring Boot (Private Subnet)
+            → Step Functions
+              → ContextBuilderLambda (embed + pgvector)
+              → BedrockInvokeLambda (chat Mantle)
+              → S3 / RDS
+```
+
+#### Member assignments
+
+| Member | Block owned | Section |
+| --- | --- | --- |
+| **Trí** | IAM, VPC, Subnet, NAT, Security Groups | [5.3](5.3-tv1-iam-vpc/) |
+| **Kiệt** | S3, RDS, DB Secrets, pgvector, Bedrock model access | [5.4](5.4-tv2-data-secrets/) |
+| **Toàn** | EC2 (Spring Boot), ALB, Target Group | [5.5](5.5-TV3-ec2-alb/) |
+| **Hoa** | Lambda, Step Functions (Bedrock Mantle) | [5.6](5.6-TV4-serverless/) |
+| **Trinh** | Cognito, API Gateway, CloudFront, WAF | [5.7](5.7-tv5-auth-edge/) |
+
+#### Contents
 
 1. [Introduction](5.1-Workshop-overview/)
-2. [Prerequisites](5.2-Prerequiste/)
-3. [Setting up Amazon Cognito](5.3-Setting-up-amazon-cognito/)
-4. [Configuring Amazon API Gateway](5.4-Configuring-amazon-api-gateway/)
-5. [Testing the Authentication Flow](5.5-Testing-the-authentication-flow/)
-6. [Clean up Resources](5.6-Cleanup/)
+2. [Shared prerequisites](5.2-prerequisites/)
+3. [Trí – IAM & VPC foundation](5.3-tv1-iam-vpc/)
+4. [Kiệt – Data & secrets layer](5.4-tv2-data-secrets/)
+5. [Toàn – Backend compute: EC2 & ALB](5.5-TV3-ec2-alb/)
+6. [Hoa – Serverless: Lambda & Step Functions](5.6-TV4-serverless/)
+7. [Trinh – Authentication & edge layer](5.7-tv5-auth-edge/)
+8. [End-to-end testing](5.8-end-to-end-testing/)
+9. [Monitoring & operations](5.9-monitoring-operations/)
+10. [Resource cleanup](5.10-cleanup/)
+
+{{% notice note %}}
+The whole team uses **one shared AWS account**, with each person having their **own IAM User** (`tri`, `kiet`, `toan`, `hoa`, `trinh`). Maintain **one shared parameter table** (VPC ID, Subnet, SG, Role ARN, S3, RDS endpoint, Mantle URL/model, ALB DNS, CloudFront domain…) for handoff between members.
+{{% /notice %}}

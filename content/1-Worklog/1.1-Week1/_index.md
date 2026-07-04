@@ -8,9 +8,9 @@ pre: " <b> 1.1. </b> "
 
 ### Week 1 Objectives:
 
-* Learn about and optimize the AWS Free Tier 2025 account.
-* Research strategies for claiming and utilizing the $200 Credit package.
-* Build sample architecture diagrams and set up cost alerting systems.
+* Register and activate an AWS account.
+* Learn foundational cloud computing knowledge through Module 01.
+* Complete hands-on tasks to earn AWS Credits.
 
 ### Tasks to be carried out this week:
 <table class="worklog-table">
@@ -33,52 +33,52 @@ pre: " <b> 1.1. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Explore AWS Free Tier 2025 overview and major changes <br> - Analyze and compare Free Plan vs. Paid Plan in detail</td>
+      <td class="col-task">- Register an AWS account. <br> - Complete account verification and activation steps.</td>
       <td class="col-date">04/20/2026</td>
       <td class="col-date">04/20/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Research overall strategy to optimize and receive the full $200 AWS Credit <br> - Create a roadmap to maximize credit earnings</td>
+      <td class="col-task">- Get familiar with the AWS Management Console. <br> - Explore basic services on the AWS platform.</td>
       <td class="col-date">04/21/2026</td>
       <td class="col-date">04/21/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Execute the 5 core "Earn Credit" hands-on tasks in detail <br> - Practice configuring foundational services listed in the task requirements</td>
+      <td class="col-task">- Study Module 01-01: What Is Cloud Computing? <br> - Complete the Amazon Bedrock task to learn about generative AI on AWS. <br> - Finish the task and record results on the platform.</td>
       <td class="col-date">04/22/2026</td>
       <td class="col-date">04/22/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Study Credit "Killers" configuration errors and prevention methods <br> - Research Sample Architectures optimized within the $200 Credit budget</td>
+      <td class="col-task">- Study Module 01-02: What Makes AWS Different? <br> - Complete the Aurora and RDS task. <br> - Learn about managed database services on AWS.</td>
       <td class="col-date">04/23/2026</td>
       <td class="col-date">04/23/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Study Monitoring methods and Cost Optimization strategies on AWS Cloud <br> - Set up Billing Alerts to control the budget</td>
+      <td class="col-task">- Review knowledge from Module 01-01 and Module 01-02. <br> - Complete the AWS Lambda task. <br> - Learn about the Serverless model and deploying functions on AWS.</td>
       <td class="col-date">04/24/2026</td>
       <td class="col-date">04/24/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Answer common questions using the FAQ documentation <br> - Build a long-term AWS Learning Roadmap combined with Free Tier usage</td>
+      <td class="col-task">- Study Module 01-03: How to Start Your Cloud Journey? <br> - Complete the Amazon EC2 task. <br> - Learn how to create and manage virtual servers on AWS.</td>
       <td class="col-date">04/25/2026</td>
       <td class="col-date">04/25/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Summarize Week 1 knowledge <br> - Verify and confirm successful receipt of $200 AWS Credit</td>
+      <td class="col-task">- Summarize knowledge learned in Module 01. <br> - Review completed task results. <br> - Confirm successful receipt of 100 USD AWS Credits.</td>
       <td class="col-date">04/26/2026</td>
       <td class="col-date">04/26/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +86,14 @@ pre: " <b> 1.1. </b> "
 
 ### Week 1 Achievements:
 
-* Mastered the mechanics and limits of AWS Free Tier 2025; clearly distinguished between service tiers.
-* Completed the 5 hands-on task guide and strategy to claim the full $200 Credit.
-* Identified cost-incurring risks and learned how to apply safe sample architectures.
-* Mastered cost monitoring tools and established a structured AWS learning roadmap.
+* Successfully registered an AWS account.
+* Completed the following learning modules:
+  * Module 01-01: What Is Cloud Computing?
+  * Module 01-02: What Makes AWS Different?
+  * Module 01-03: How to Start Your Cloud Journey?
+* Completed 4 hands-on tasks:
+  * Amazon Bedrock
+  * Aurora and RDS
+  * AWS Lambda
+  * Amazon EC2
+* Successfully received 100 USD AWS Credits for learning and practice on AWS.

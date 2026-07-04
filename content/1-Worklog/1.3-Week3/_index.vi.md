@@ -8,9 +8,10 @@ pre: " <b> 1.3. </b> "
 
 ### Mục tiêu tuần 3:
 
-* Nghiên cứu và thực hành xây dựng môi trường mạng an toàn với Amazon VPC và AWS Site-to-Site VPN.
-* Tìm hiểu chuyên sâu về dịch vụ máy chủ ảo Amazon EC2 trên cả hai hệ điều hành Windows và Linux.
-* Triển khai ứng dụng thực tế và áp dụng các quy chuẩn quản trị chi phí, dọn dẹp tài nguyên.
+* Tiếp tục nghiên cứu và thực hành các bài Lab trên nền tảng AWS.
+* Tìm hiểu dịch vụ quản lý danh tính và phân quyền (IAM).
+* Nghiên cứu kiến trúc mạng trên AWS thông qua VPC, EC2 và Site-to-Site VPN.
+* Thực hành triển khai, cấu hình và quản trị các tài nguyên hạ tầng trên AWS.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +34,52 @@ pre: " <b> 1.3. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Tiếp cận kiến thức nền tảng về Amazon VPC <br> - Tìm hiểu multi-AZ NAT Gateways, VPC Flow Logs, CloudWatch monitoring và Systems Manager Session Manager</td>
+      <td class="col-task">- Thực hiện Lab Create IAM Group and IAM User <br> - Tạo nhóm quản trị (Admin Group) và tài khoản Admin User <br> - Thực hành đăng nhập bằng IAM User thay vì tài khoản Root</td>
       <td class="col-date">04/05/2026</td>
       <td class="col-date">04/05/2026</td>
-      <td class="col-ref">https://000003.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Thiết lập tường lửa trong VPC: phân biệt và cấu hình Security Groups và Network ACLs <br> - Chuẩn bị và triển khai EC2 vào kiến trúc VPC vừa tạo</td>
+      <td class="col-task">- Thực hiện Lab Create IAM Role and IAM User <br> - Tạo IAM Role với quyền quản trị và tài khoản OperatorUser <br> - Tìm hiểu cơ chế phân quyền thông qua IAM Role</td>
       <td class="col-date">05/05/2026</td>
       <td class="col-date">05/05/2026</td>
-      <td class="col-ref">https://000003.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Cấu hình kết nối AWS Site-to-Site VPN thiết lập đường truyền mã hóa giữa On-premises và AWS <br> - Tiếp cận giải pháp tự động hóa hạ tầng qua Infrastructure as Code (IaC) Templates</td>
+      <td class="col-task">- Thực hiện Lab Switch Role <br> - Cấu hình quyền cho OperatorUser chuyển đổi vai trò <br> - Thực hành truy cập AWS Console bằng cơ chế Switch Role</td>
       <td class="col-date">06/05/2026</td>
       <td class="col-date">06/05/2026</td>
-      <td class="col-ref">https://000003.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Tìm hiểu Amazon EC2: tổng quan, cơ chế hoạt động và các tính năng cốt lõi của máy chủ ảo <br> - Nghiên cứu các tiêu chuẩn bảo mật cấu hình và phân quyền IAM an toàn cho EC2</td>
+      <td class="col-task">- Tìm hiểu Firewall trong VPC <br> - Thực hành cấu hình Security Group <br> - Tìm hiểu Network ACLs và VPC Resource Map</td>
       <td class="col-date">07/05/2026</td>
       <td class="col-date">07/05/2026</td>
-      <td class="col-ref">https://000004.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Thực hành khởi chạy Instance trên hệ điều hành Microsoft Windows Server 2025 <br> - Thực hành khởi chạy Instance trên hệ điều hành Amazon Linux 2023</td>
+      <td class="col-task">- Thực hiện các bước chuẩn bị hạ tầng mạng: <br>&emsp; + Tạo VPC, Subnet, Internet Gateway <br>&emsp; + Tạo Route Table, Security Group <br>&emsp; + Kích hoạt VPC Flow Logs</td>
       <td class="col-date">08/05/2026</td>
       <td class="col-date">08/05/2026</td>
-      <td class="col-ref">https://000004.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Triển khai ứng dụng Node.js "AWS User Management" (CRUD) trên Amazon Linux 2023 <br> - Triển khai ứng dụng tương tự trên EC2 Windows để so sánh quy trình vận hành</td>
+      <td class="col-task">- Thực hiện Lab Deploying Amazon EC2 Instances <br> - Tạo và cấu hình máy chủ EC2, kiểm tra kết nối <br> - Tìm hiểu NAT Gateway, Reachability Analyzer, EC2 Instance Connect <br> - Thiết lập CloudWatch Monitoring & Alerting</td>
       <td class="col-date">09/05/2026</td>
       <td class="col-date">09/05/2026</td>
-      <td class="col-ref">https://000004.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Học cách quản trị chi phí và kiểm soát sử dụng EC2 bằng IAM <br> - Thực hiện dọn dẹp tài nguyên (VPC và EC2) để tránh phát sinh chi phí ngoài ý muốn</td>
+      <td class="col-task">- Thực hiện Lab Setting Up Site-to-Site VPN Connection in AWS <br> - Tạo Virtual Private Gateway, Customer Gateway và VPN Connection <br> - Cấu hình VPN Tunnel và ôn tập kiến thức trong tuần</td>
       <td class="col-date">10/05/2026</td>
       <td class="col-date">10/05/2026</td>
-      <td class="col-ref">https://000004.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +87,9 @@ pre: " <b> 1.3. </b> "
 
 ### Kết quả đạt được tuần 3:
 
-* Thiết kế và triển khai thành công hạ tầng mạng VPC hoàn chỉnh với bảo mật đa tầng SG/NACL và kết nối VPN Hybrid.
-* Làm chủ quy trình khởi tạo, cấu hình và quản lý EC2 trên cả Windows Server 2025 và Amazon Linux 2023.
-* Triển khai thành công ứng dụng Full-stack Node.js CRUD lên EC2 và biết cách đóng gói hạ tầng bằng IaC.
-* Ý thức rõ cơ chế tính phí EC2/VPC và thành thạo kỹ năng dọn dẹp tài nguyên để tối ưu ngân sách.
+* Hiểu được cơ chế quản lý danh tính và phân quyền thông qua IAM User, IAM Group và IAM Role.
+* Thực hành thành công việc chuyển đổi vai trò (Switch Role) trong AWS.
+* Nắm được các thành phần mạng cơ bản trong AWS như VPC, Subnet, Route Table, Security Group và Network ACL.
+* Triển khai thành công máy chủ Amazon EC2 và thực hiện giám sát bằng CloudWatch.
+* Tìm hiểu và cấu hình kết nối Site-to-Site VPN trên AWS.
+* Củng cố kiến thức về quản trị hạ tầng và bảo mật mạng trên nền tảng điện toán đám mây AWS.

@@ -1,0 +1,169 @@
+Phần A — Amazon Cognito (User Pool)
+A.1. Search Cognito → Create user pool.
+
+A.2. Configure sign-in experience
+
+Authentication providers: Cognito user pool.
+Cognito user pool sign-in options: tích Email.
+→ Next.
+A.3. Configure security requirements
+
+Password policy: để mặc định (hoặc nới cho dễ test).
+MFA: chọn No MFA (cho đơn giản khi demo).
+→ Next.
+A.4. Configure sign-up experience
+
+Giữ mặc định (Enable self-registration nếu muốn cho đăng ký).
+→ Next.
+A.5. Configure message delivery
+
+Email: chọn Send email with Cognito (mặc định, đủ cho demo).
+→ Next.
+A.6. Integrate your app
+
+User pool name: zerobug-user-pool.
+Hosted authentication pages: tích Use the Cognito Hosted UI.
+Domain: chọn Use a Cognito domain, nhập tiền tố ví dụ zerobug-<hậu tố> → thành zerobug-xxx.auth.ap-southeast-1.amazoncognito.com.
+Initial app client:
+App type: Public client (cho Vite SPA — không Client Secret).
+App client name: zerobug-spa-client.
+Allowed callback URLs: tạm điền http://localhost:5173 (và sau này thêm CloudFront domain).
+→ Next → Create user pool.
+A.7. Tạo user test & group
+
+Mở user pool zerobug-user-pool.
+Tab Users → Create user: email admin@gmail.com, đặt password, bỏ tick "send invitation" nếu muốn tự đặt.
+Tab Groups → Create group: tạo ADMIN và USER; thêm admin@gmail.com vào ADMIN.
+Copy User Pool ID và App Client ID (tab App integration → App clients) vào bảng.
+Phần B — API Gateway (REST API → ALB)
+B.1. Search API Gateway → Create API → ở REST API (không phải Private/HTTP) bấm Build.
+
+API name: zerobug-api.
+Endpoint Type: Regional.
+→ Create API.
+B.2. Tạo Cognito Authorizer
+
+Menu trái Authorizers → Create authorizer.
+Name: zerobug-cognito-auth.
+Type: Cognito.
+Cognito user pool: chọn zerobug-user-pool.
+Token source: Authorization.
+→ Create.
+B.3. Tạo resource proxy trỏ về ALB (cách gọn nhất)
+
+Menu trái Resources → chọn / → Create resource.
+Tích Proxy resource; Resource name: proxy; Resource path sẽ là /{proxy+}.
+Tích Enable CORS.
+→ Create resource.
+B.4. Cấu hình method ANY → HTTP Proxy tới ALB
+
+Chọn resource /{proxy+} → nó sẽ có method ANY (nếu chưa, Create method → ANY).
+Integration type: HTTP (bật HTTP proxy integration).
+Endpoint URL: http://<ALB-DNS>/{proxy} ← thay ALB DNS của TV3.
+→ Save.
+B.5. Gắn Authorizer cho method (bảo vệ bằng JWT)
+
+Chọn method ANY của /{proxy+} → Method request → Edit.
+Authorization: chọn zerobug-cognito-auth.
+→ Save.
+Muốn để /api/health public (không cần token): tạo thêm resource riêng /api/health với method GET, integration HTTP tới http://<ALB-DNS>/api/health, và Authorization = None. Phần còn lại vẫn qua {proxy+} có bảo vệ.
+
+B.6. Bật CORS (cho Vite SPA)
+
+Chọn resource /{proxy+} → Enable CORS → tích các method, thêm header Authorization, Content-Type → Save.
+B.7. Deploy
+
+Deploy API → New stage → Stage name: prod → Deploy.
+Copy Invoke URL (dạng https://xxxx.execute-api.ap-southeast-1.amazonaws.com/prod) vào bảng.
+Phần C — CloudFront (thay Route 53 bằng domain mặc định)
+C.1. Search CloudFront → Create distribution.
+
+C.2. Origin
+
+Origin domain: dán phần domain của Invoke URL, tức xxxx.execute-api.ap-southeast-1.amazonaws.com (bỏ https:// và bỏ /prod).
+Origin path: /prod (đúng tên stage).
+Protocol: HTTPS only.
+C.3. Default cache behavior
+
+Viewer protocol policy: Redirect HTTP to HTTPS.
+Allowed HTTP methods: chọn GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE.
+Cache policy: CachingDisabled (API không cache).
+Origin request policy: AllViewerExceptHostHeader (để chuyển tiếp header Authorization, query… nhưng không ghi đè Host của API Gateway).
+C.4. WAF
+
+Ở phần Web Application Firewall (WAF): có thể chọn Enable security protections để CloudFront tự tạo Web ACL — hoặc Do not enable rồi tự tạo ở Phần D (kiểm soát rule tốt hơn). Tùy bạn.
+C.5. Phần Settings: Alternate domain name (CNAME) để trống (vì không có Route 53) → CloudFront cấp sẵn domain d....cloudfront.net kèm HTTPS. Không cần ACM cert.
+
+→ Create distribution. Đợi trạng thái Deployed (~5–10 phút). Copy Distribution domain name vào bảng.
+C.6. Cập nhật callback Cognito
+
+Quay lại Cognito → App client → Edit → thêm https://d....cloudfront.net vào Allowed callback URLs / sign-out URLs. → Save.
+Phần D — AWS WAF (nếu chưa bật ở C.4)
+Quan trọng: để gắn cho CloudFront, phải đổi region góc phải sang Global (CloudFront) hoặc US East (N. Virginia) us-east-1 khi tạo Web ACL.
+
+D.1. Search WAF → Web ACLs → đổi region về Global (CloudFront) → Create web ACL.
+
+Name: zerobug-waf.
+Resource type: CloudFront distributions.
+Associated AWS resources: Add → chọn distribution vừa tạo.
+→ Next.
+D.2. Add rules (managed)
+
+Add rules → Add managed rule groups → mở AWS managed rule groups, bật:
+Core rule set (CRS)
+Known bad inputs
+→ Add rules.
+D.3. Add rate limit rule
+
+Add rules → Add my own rules → Rule type Rate-based rule.
+Name: rate-limit; Rate limit: ví dụ 1000 request/5 phút/IP; Action: Block.
+→ Add rule.
+D.4. Default action: Allow → Next → giữ mặc định các bước → Create web ACL.
+
+Phần E — Kiểm tra & Bàn giao
+E.1. Kiểm tra (phần làm được ngay, không cần backend):
+
+CloudFront Deployed, mở https://d....cloudfront.net/api/health — nếu backend TV3 chưa chạy sẽ trả lỗi 5xx/502; điều đó bình thường lúc này, quan trọng là request đi đúng tuyến CloudFront → API GW → ALB. Ghi chú "chờ backend" trong báo cáo.
+Cognito Hosted UI mở được trang đăng nhập: https://zerobug-xxx.auth.ap-southeast-1.amazoncognito.com/login?client_id=<AppClientId>&response_type=token&redirect_uri=https://d....cloudfront.net.
+E.2. Để lại test khi backend xong:
+
+Đăng nhập Cognito lấy JWT → gọi API qua CloudFront với header Authorization: Bearer <token> → nhận dữ liệu thật.
+Kiểm tra WAF chặn khi vượt rate limit.
+E.3. Checklist:
+
+
+ User Pool + App Client (public, no secret) + user admin@gmail.com + group ADMIN/USER.
+
+ API Gateway zerobug-api có {proxy+} → HTTP proxy tới ALB, gắn Cognito authorizer, CORS, deploy stage prod.
+
+ CloudFront Deployed, origin = API Gateway /prod, dùng domain mặc định.
+
+ WAF zerobug-waf (Global) gắn vào CloudFront, có Core Rule Set + rate limit.
+
+ Điền đủ bảng tham số.
+E.4. Bàn giao:
+
+Frontend/Electron: CloudFront domain (URL production), User Pool ID, App Client ID, Cognito domain để cấu hình đăng nhập.
+Toàn tuyến hoàn tất: Client → CloudFront → WAF → API Gateway → ALB → EC2.
+Xong TV5. Khi bạn muốn, mình hướng dẫn tiếp TV4 (Lambda + Gemini + Step Functions) — mình sẽ chỉ cả cách tạo Lambda placeholder để viết báo cáo trước khi có code backend thật. Bạn muốn làm TV4 luôn không?
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Đây là màn hình tạo nhanh kiểu mới của Cognito. Điền như sau:
+
+Define your application
+Application type: chọn Single-page application (SPA). → Vì frontend là Vite SPA (và Electron load web) → Cognito sẽ tạo public client, KHÔNG có Client Secret (đúng cái ta cần).
+Name your application: đặt zerobug-spa-client (hoặc để tên gợi nhớ, ví dụ zerobug-app).
+Configure options
+Options for sign-in identifiers: tích Email. ⚠️ Lưu ý dòng cảnh báo: cái này không sửa được sau khi tạo, nên chọn Email cho chắc.
+Self-registration: cứ để Enable self-registration đã tick sẵn (cho phép tự đăng ký; nếu không muốn ai đăng ký ngoài thì bỏ tick — với đồ án cứ để bật).
+Required attributes for sign-up: chọn email (hoặc để trống cũng được).
+Add a return URL (optional)
+Điền tạm: http://localhost:5173 → Đây là URL Cognito redirect về sau khi đăng nhập. Cognito cho phép http://localhost để test; domain thật phải https://.
+Sau này (khi TV5 có CloudFront domain) quay lại thêm https://d....cloudfront.net vào danh sách callback URLs.
+Rồi bấm Create user directory.
+
+Lưu ý: flow nhanh này tạo sẵn User Pool + App Client cho bạn. Sau khi tạo xong, vào lại user pool để:
+
+Tạo user test admin@gmail.com (tab Users → Create user).
+Tạo group ADMIN / USER (tab Groups) — như Phần A.7 mình đã hướng dẫn.
+Copy User Pool ID và App Client ID vào bảng tham số.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

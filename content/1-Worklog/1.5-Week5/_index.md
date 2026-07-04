@@ -8,9 +8,11 @@ pre: " <b> 1.5. </b> "
 
 ### Week 5 Objectives:
 
-* Get familiar with and master the AWS Cloud9 browser-based integrated development environment.
-* Practice basic operations and manage source code and files directly in the Cloud9 IDE.
-* Learn how to interact with AWS resources using the built-in AWS CLI command-line tool.
+*   Set up and prepare a comprehensive development environment for the project on a personal machine.
+*   Initialize the project structure, including the interface platform and corresponding Backend services.
+*   Learn about the Amazon S3 storage service on the AWS platform.
+*   Learn about the content delivery mechanism through Amazon CloudFront to prepare the deployment infrastructure.
+*   Prepare the necessary conditions to integrate the Front-end and Backend systems with the AWS Cloud infrastructure.
 
 ### Tasks to be carried out this week:
 <table class="worklog-table">
@@ -33,52 +35,52 @@ pre: " <b> 1.5. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Study Cloud9 IDE overview: role and benefits of a Cloud-based IDE <br> - Explore coding, running, testing, and debugging directly in a Web Browser</td>
+      <td class="col-task">- Continue to hone specialized skills: Maintain research and practice of infrastructure and service management Labs through a series of lectures on YouTube. <br> - Consolidate and reinforce AWS architecture knowledge from previous weeks to best prepare for project deployment.</td>
       <td class="col-date">05/18/2026</td>
       <td class="col-date">05/18/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Practice creating a Cloud9 development environment (Create Cloud9 instance) <br> - Customize the IDE interface: color themes, keyboard shortcuts, and enable code formatting</td>
+      <td class="col-task">- Set up and prepare the development environment: Install platform tools and configure the programming environment on the personal machine. <br> - Configure specialized programming tools for the Backend (Java, Spring Boot, database) to be ready for the core application development phase.</td>
       <td class="col-date">05/19/2026</td>
       <td class="col-date">05/19/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Study Cloud9 Basic Features: directory structure, toolbar, and main functional areas</td>
+      <td class="col-task">- Initialize project structure: Start building the foundation for the user interface system. <br> - Initialize the Backend source code framework, set up initial configuration files (like application.yml, pom.xml), and connect to the dev environment database.</td>
       <td class="col-date">05/20/2026</td>
       <td class="col-date">05/20/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Practice working with text files: create, edit source code, and use syntax coloring by programming language</td>
+      <td class="col-task">- Optimize the workflow: Scientifically configure the source code directory structure for both sides of the application. <br> - Prepare the necessary conditions and libraries to integrate the Front-end with Backend services and the AWS Cloud infrastructure in the next project phases.</td>
       <td class="col-date">05/21/2026</td>
       <td class="col-date">05/21/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Use the command-line interface through Cloud9's built-in Terminal <br> - Manage the underlying server system via terminal</td>
+      <td class="col-task">- Get an overview of the Amazon S3 service, research the concepts of S3 Bucket, Object Storage, and the role of S3 in the AWS ecosystem. <br> - Plan for storing static resources and source code (Static Website Hosting) for the project via Amazon S3.</td>
       <td class="col-date">05/22/2026</td>
       <td class="col-date">05/22/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Practice using the pre-configured AWS CLI on Cloud9 to query and manage AWS resources <br> - Learn how to manage the list of Cloud9 environments on the Dashboard</td>
+      <td class="col-task">- Research Public Access Control and Object Ownership mechanisms to set up secure access on S3. <br> - Practice default security settings, prepare scripts to automatically upload source code or configuration files to Amazon S3.</td>
       <td class="col-date">05/23/2026</td>
       <td class="col-date">05/23/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Perform resource cleanup: delete the Cloud9 Instance after completing the workshop <br> - Ensure no costs are incurred from the created Cloud9 environment</td>
+      <td class="col-task">- Learn about the content delivery network (CDN) mechanism through Amazon CloudFront. <br> - Review the entire Local development environment and evaluate the plan to use CloudFront to accelerate system access when combined with Backend API and S3.</td>
       <td class="col-date">05/24/2026</td>
       <td class="col-date">05/24/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +88,7 @@ pre: " <b> 1.5. </b> "
 
 ### Week 5 Achievements:
 
-* Mastered the AWS Cloud9 IDE development environment; learned how to customize the workspace for personal use.
-* Proficient in basic Cloud coding skills: file management, code editing, debugging, and terminal interaction.
-* Effectively utilized AWS CLI in the Cloud9 environment to manage AWS resources via command line.
-* Performed proper environment cleanup, ensuring Free Tier account limits are protected.
+*   Successfully installed and configured the programming environment on a personal machine for both Frontend and Backend.
+*   Completed the initialization of the project structure and planned a synchronized, optimized Backend source code directory.
+*   Fully prepared the necessary conditions for a smooth integration between Front-end, Backend services, and the AWS Cloud infrastructure.
+*   Mastered the operating principles of Amazon S3 and Amazon CloudFront storage services.

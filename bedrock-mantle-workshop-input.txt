@@ -1,0 +1,181 @@
+================================================================================
+  THÔNG TIN CẦN ĐIỀN — CHUYỂN WORKSHOP TỪ GEMINI → AMAZON BEDROCK MANTLE
+================================================================================
+Điền các mục bên dưới rồi gửi lại (hoặc commit file này) trước khi cập nhật
+nội dung trong content/5-Workshop/.
+
+Ghi chú: Bedrock Mantle dùng endpoint dạng
+  https://bedrock-mantle.{region}.api.aws
+(hoặc bedrock-mantle.{region}.amazonaws.com — xác nhận đúng URL bạn dùng)
+
+--------------------------------------------------------------------------------
+1. REGION & ENDPOINT
+--------------------------------------------------------------------------------
+
+Region chính của workshop (hiện tại: ap-southeast-1):
+[X] Khác: us-east-1 (N. Virginia)
+
+Bedrock Mantle đã bật / gọi thử thành công ở region trên:
+  [X] Có   
+
+Base URL endpoint Mantle bạn dùng (copy từ Console hoặc curl thành công):
+  https://bedrock-mantle.us-east-1.api.aws/v1/chat/completions
+
+Có gọi cross-region không? (Lambda ở region A, Mantle ở region B)
+ [X] Có — Lambda region: ap-southeast-1 (Singapore) | Mantle region: us-east-1 (N. Virginia)
+
+--------------------------------------------------------------------------------
+2. MODEL TRÊN BEDROCK MANTLE
+--------------------------------------------------------------------------------
+
+Model ID chính xác (string khi gọi API, ví dụ anthropic.claude-...):
+Sinh mã nguồn (Chat): openai.gpt-oss-120b
+Số hóa ngữ cảnh (Embedding): cohere.embed-multilingual-v3
+
+Tên hiển thị / nhà cung cấp (Claude, Nova, DeepSeek, …):
+OpenAI-Compatible Models (Hạ tầng AWS Bedrock Proxy)
+Cohere Technologies (Dành cho việc trích xuất Vector RAG)
+
+Model đã bật "Model access" trong Bedrock Console:
+  [X] Có
+
+API Mantle nhóm dùng (chọn MỘT làm chuẩn cho hướng dẫn):
+  [X] Chat Completions (OpenAI-compatible)
+
+Model này có trên endpoint bedrock-mantle (không phải chỉ bedrock-runtime):
+  [X] Có
+
+--------------------------------------------------------------------------------
+3. XÁC THỰC (AUTH) — LAMBDA AI INVOKE (HOA)
+--------------------------------------------------------------------------------
+
+Chọn MỘT phương án:
+
+  [ ] A — IAM role zerobug-lambda-role (không lưu API key)
+        Policy gắn thêm (ghi rõ tên hoặc paste ARN policy):
+        _____________________________________________________________________
+
+  [X] B — Bedrock API key (Bearer token)
+        Key tạo ở: Bedrock Console → API keys (hoặc mô tả khác):
+        Tạo thủ công chuỗi Token mã hóa từ giao diện quản lý API Keys của dự án Bedrock Mantle với thời hạn quy định (30 ngày)
+        Lưu vào Secrets Manager:
+          [X] Không — key cấu hình trực tiếp qua hằng số hệ thống hoặc biến môi trường (Environment Variable) trên Lambda.
+
+  [ ] C — Khác (mô tả):
+        _____________________________________________________________________
+
+--------------------------------------------------------------------------------
+4. LAMBDA AI INVOKE — CÁCH GỌI THỰC TẾ
+--------------------------------------------------------------------------------
+
+Tên Lambda function trên AWS (giữ hay đổi):
+  Hiện workshop gợi ý: zerobug-ai-invoke-gemini
+  Tên thực tế / tên mới: BedrockInvokeLambda
+
+Lambda chạy trong VPC (private subnet + zerobug-lambda-sg) như workshop cũ:
+  [X] Có    [ ] Không
+
+Để Lambda gọi Bedrock Mantle, nhóm dùng:
+  [X] Internet qua NAT Gateway (giữ NAT)
+  [ ] VPC Interface Endpoint cho Bedrock/Mantle (ghi loại endpoint nếu có)
+  [ ] Chưa xác định
+
+Path API đầy đủ (ví dụ /v1/chat/completions):
+  Sinh mã nguồn: /v1/chat/completions
+
+Trích xuất định dạng vector: /v1/embeddings
+
+Đính kèm MỘT trong hai (bắt buộc để viết bước test trong workshop):
+
+  (a) Lệnh curl test thành công:
+  _____________________________________________________________________________
+  _____________________________________________________________________________
+  _____________________________________________________________________________
+
+  (b) Hoặc snippet code Lambda (Java/Python) — vài dòng gọi Mantle:
+  HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(20)).build();
+HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("https://bedrock-mantle.us-east-1.api.aws/v1/chat/completions"))
+        .header("Content-Type", "application/json")
+        .header("Authorization", "Bearer " + API_KEY)
+        .POST(HttpRequest.BodyPublishers.ofString(payload.toString()))
+        .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+Response thành công trông như thế nào? (status code, log 1 dòng):
+ HTTP Status Code: 200 OK. Trả về cấu trúc JSON chuẩn OpenAI, chứa trường nội dung mã nguồn Unit Test tinh khiết sau khi lọc qua biểu thức chính quy (Regex).
+
+--------------------------------------------------------------------------------
+5. KIỆT — SECRETS MANAGER
+--------------------------------------------------------------------------------
+
+Secret Gemini cũ zerobug/gemini/apikey:
+  [X] Xóa hẳn khỏi hướng dẫn + cleanup
+  [ ] Giữ tạm (chưa xóa trên AWS)
+
+Secret mới cho Bedrock (nếu dùng API key):
+  Secret name: _______________________________________________________________
+  Key trong secret (tên field): _______________________________________________
+
+Kiệt còn việc gì liên quan AI sau khi chuyển Mantle?
+  [X] Chỉ bật model access Bedrock (Console) — không secret AI
+  [ ] Lưu Bedrock API key vào Secrets Manager
+  [ ] Khác: __________________________________________________________________
+
+--------------------------------------------------------------------------------
+6. TOÀN (EC2) & ỨNG DỤNG SPRING BOOT
+--------------------------------------------------------------------------------
+
+EC2 / Spring Boot có gọi Bedrock trực tiếp không?
+  [X] Không — chỉ Lambda (Hoa) gọi AI
+  [ ] Có — mô tả: ____________________________________________________________
+
+Endpoint GET /api/aws/status (frontend) sau khi đổi trả trạng thái gì?
+  (thay "Gemini" trong doc — ví dụ: bedrock, mantle, model-id):
+  _____________________________________________________________________________
+
+cloud.env trên EC2 có thêm/sửa biến nào liên quan Bedrock không?
+  [X] Không
+  [ ] Có — liệt kê:
+      _________________________________________________________________________
+
+--------------------------------------------------------------------------------
+7. QUY ƯỚC TÀI NGUYÊN & TÀI LIỆU WORKSHOP
+--------------------------------------------------------------------------------
+
+Đổi tên slug/folder trong content/5-Workshop/:
+  5.4.5-gemini          →  [ ] giữ URL cũ   [ ] đổi thành: ___________________
+  5.6.3-ai-invoke-gemini → [ ] giữ URL cũ   [ ] đổi thành: ___________________
+
+Tiêu đề sidebar gợi ý (có thể sửa):
+  5.4.5: "Bedrock Mantle" / "Amazon Bedrock" / _______________________________
+  5.6.3: "Lambda — AI Invoke (Bedrock Mantle)" / _____________________________
+
+Trong doc có giữ đoạn so sánh "trước Gemini → sau Bedrock"?
+  [ ] Có — 1 bảng ngắn
+  [X] Không — thay hẳn, không nhắc Gemini
+
+Phạm vi sửa khi Agent cập nhật:
+  [X] Chỉ content/5-Workshop/
+  [ ] Thêm: Idea.txt, TV*.txt, Workshop.txt
+  [ ] Thêm: code ứng dụng (repo khác — ghi đường dẫn): _______________________
+
+--------------------------------------------------------------------------------
+8. NAT GATEWAY — CÁCH GHI TRONG WORKSHOP SAU KHI ĐỔI AI
+--------------------------------------------------------------------------------
+
+NAT Gateway (zerobug-nat) sau khi dùng Bedrock Mantle:
+  [ ] Vẫn bắt buộc — vì: EC2 SSM / pull JAR / endpoint khác (ghi rõ)
+  [ ] Vẫn tạo như cũ nhưng KHÔNG còn lý do "gọi Gemini"
+  [ ] Có thể bỏ/giảm nếu dùng VPC Endpoint — mô tả: _________________________
+
+--------------------------------------------------------------------------------
+9. KIỂM THỬ & CHI PHÍ
+--------------------------------------------------------------------------------
+
+Tiêu chí checklist Hoa "AI Invoke OK":
+  _____________________________________________________________________________
+
+Có theo dõi quota/cost Bedrock Mantle riêng (5.9 Budgets)?
+  [ ] Có — ngưỡng gợi ý: _____________________________________________________
+  [X] Không — chỉ AWS Billing chung

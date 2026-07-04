@@ -8,9 +8,11 @@ pre: " <b> 1.5. </b> "
 
 ### Mục tiêu tuần 5:
 
-* Làm quen và sử dụng thành thạo môi trường lập trình tích hợp AWS Cloud9 trên trình duyệt.
-* Thực hành các thao tác cơ bản và quản lý mã nguồn, tệp tin trực tiếp trên Cloud9 IDE.
-* Học cách tương tác với các tài nguyên AWS thông qua công cụ dòng lệnh AWS CLI tích hợp sẵn.
+*   Thiết lập và chuẩn bị môi trường phát triển toàn diện cho dự án trên máy cá nhân.
+*   Khởi tạo cấu trúc dự án, bao gồm nền tảng giao diện và các dịch vụ Backend tương ứng.
+*   Tìm hiểu dịch vụ lưu trữ Amazon S3 trên nền tảng AWS.
+*   Tìm hiểu cơ chế phân phối nội dung thông qua Amazon CloudFront để chuẩn bị hạ tầng triển khai.
+*   Chuẩn bị sẵn sàng các điều kiện để tích hợp hệ thống Front-end và Backend với hạ tầng AWS Cloud.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +35,52 @@ pre: " <b> 1.5. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Nghiên cứu tổng quan về Cloud9 IDE: vai trò, lợi ích của Cloud-based IDE <br> - Tìm hiểu khả năng lập trình, chạy, kiểm thử và debug trực tiếp trên Web Browser</td>
+      <td class="col-task">- Tiếp tục trau dồi kỹ năng chuyên sâu: Duy trì việc nghiên cứu và thực hành các bài Lab quản trị hạ tầng và dịch vụ thông qua chuỗi bài giảng trên nền tảng YouTube. <br> - Tổng hợp, củng cố kiến thức kiến trúc AWS từ các tuần trước nhằm chuẩn bị tốt nhất cho việc triển khai dự án.</td>
       <td class="col-date">18/05/2026</td>
       <td class="col-date">18/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Thực hành khởi tạo môi trường phát triển Cloud9 (Create Cloud9 instance) <br> - Tùy biến giao diện IDE: color themes, keyboard shortcuts và bật code formatting</td>
+      <td class="col-task">- Thiết lập và chuẩn bị môi trường phát triển: Tiến hành cài đặt các công cụ nền tảng và cấu hình môi trường lập trình trên máy cá nhân. <br> - Định cấu hình các công cụ lập trình chuyên sâu cho mảng Backend (Java, Spring Boot, cơ sở dữ liệu) để sẵn sàng cho giai đoạn xây dựng ứng dụng cốt lõi.</td>
       <td class="col-date">19/05/2026</td>
       <td class="col-date">19/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Nghiên cứu tính năng cơ bản (Basic Features) của Cloud9: cấu trúc thư mục, thanh công cụ và các khu vực chức năng chính</td>
+      <td class="col-task">- Khởi tạo cấu trúc dự án: Bắt đầu xây dựng nền tảng cho hệ thống giao diện người dùng. <br> - Khởi tạo bộ khung mã nguồn Backend, thiết lập các file cấu hình ban đầu (như application.yml, pom.xml) và kết nối cơ sở dữ liệu môi trường dev.</td>
       <td class="col-date">20/05/2026</td>
       <td class="col-date">20/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Thực hành làm việc với tệp tin văn bản (Working with text files) <br> - Tạo mới, chỉnh sửa mã nguồn và sử dụng tính năng tô sáng cú pháp (syntax coloring)</td>
+      <td class="col-task">- Tối ưu hóa quy trình: Cấu hình cấu trúc thư mục mã nguồn một cách khoa học cho cả hai phía ứng dụng. <br> - Chuẩn bị sẵn sàng các điều kiện, thư viện cần thiết để tích hợp Front-end với các dịch vụ Backend và hạ tầng AWS Cloud trong các giai đoạn tiếp theo của dự án.</td>
       <td class="col-date">21/05/2026</td>
       <td class="col-date">21/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Sử dụng giao diện dòng lệnh thông qua Terminal tích hợp sẵn của Cloud9 <br> - Quản lý hệ thống máy chủ nền tảng qua terminal</td>
+      <td class="col-task">- Tìm hiểu tổng quan về dịch vụ Amazon S3, nghiên cứu khái niệm S3 Bucket, Object Storage và vai trò của S3 trong hệ sinh thái AWS. <br> - Lên phương án lưu trữ tài nguyên tĩnh và mã nguồn (Static Website Hosting) cho dự án thông qua Amazon S3.</td>
       <td class="col-date">22/05/2026</td>
       <td class="col-date">22/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Thực hành sử dụng AWS CLI được cấu hình sẵn trên Cloud9 để truy vấn và quản trị tài nguyên AWS <br> - Tìm hiểu cách quản lý danh sách môi trường Cloud9 trên Dashboard</td>
+      <td class="col-task">- Nghiên cứu cơ chế Public Access Control và Object Ownership để thiết lập quyền truy cập an toàn trên S3. <br> - Thực hành các thiết lập bảo mật mặc định, chuẩn bị kịch bản tự động tải mã nguồn hoặc các file cấu hình lên Amazon S3.</td>
       <td class="col-date">23/05/2026</td>
       <td class="col-date">23/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Tiến hành dọn dẹp tài nguyên (Clean up): xóa Cloud9 Instance sau khi hoàn thành workshop <br> - Đảm bảo không phát sinh chi phí từ môi trường Cloud9 đã tạo</td>
+      <td class="col-task">- Tìm hiểu cơ chế phân phối nội dung (CDN) thông qua Amazon CloudFront. <br> - Rà soát lại toàn bộ môi trường phát triển Local và đánh giá phương án dùng CloudFront để tăng tốc truy cập cho hệ thống khi kết hợp cùng API Backend và S3.</td>
       <td class="col-date">24/05/2026</td>
       <td class="col-date">24/05/2026</td>
-      <td class="col-ref">https://000049.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +88,7 @@ pre: " <b> 1.5. </b> "
 
 ### Kết quả đạt được tuần 5:
 
-* Làm chủ môi trường phát triển AWS Cloud9 IDE, biết cách tùy chỉnh không gian làm việc tối ưu cho cá nhân.
-* Thành thạo các kỹ năng lập trình cơ bản trên Cloud: quản lý file, soạn thảo code, debug và tương tác terminal.
-* Khai thác hiệu quả AWS CLI trong môi trường Cloud9 để điều khiển tài nguyên AWS bằng dòng lệnh.
-* Thực hiện dọn dẹp môi trường đúng quy trình, đảm bảo an toàn cho hạn mức tài khoản Free Tier.
+*   Cài đặt và định cấu hình thành công môi trường lập trình trên máy cá nhân cho cả Frontend và Backend.
+*   Khởi tạo xong cấu trúc dự án và quy hoạch thư mục mã nguồn Backend đồng bộ, tối ưu.
+*   Chuẩn bị đầy đủ các điều kiện cần thiết để tích hợp mạch lạc giữa Front-end, các dịch vụ Backend và hạ tầng AWS Cloud.
+*   Nắm vững nguyên lý hoạt động của dịch vụ lưu trữ Amazon S3 và Amazon CloudFront.

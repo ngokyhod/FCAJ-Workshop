@@ -5,56 +5,46 @@ weight: 7
 chapter: false
 pre: " <b> 7. </b> "
 ---
+> Here, I would like to share my contributions and personal feedback regarding my experience participating in the First Cloud AI Journey (FCAJ) internship program.
 
-> This is where I share my experiences, reflections, and feedback after 12 weeks of participating in the **First Cloud AI Journey** program and building the **ZeroBug Agent** project on the AWS platform.
+### General Evaluation
 
-### Overall Evaluation
+**1. Working Environment**  
+The working environment at FCAJ is highly dynamic, professional, and technology-driven. Everyone is open and willing to exchange knowledge about Cloud systems and Artificial Intelligence. The comfortable workspace helped me focus easily on researching and debugging complex Serverless architectural workflows.
 
-**1. Program Quality**
+**2. Support from Mentors / Team Admins**  
+The mentors are extremely dedicated, especially when I was stuck with tough issues like IAM permissions, Amazon Bedrock model access denied errors, or Lambda Timeout issues. Instead of simply providing the code to fix it, mentors always guided me to read CloudWatch logs and discover the root cause myself. The team admins were also very prompt in granting AWS resource permissions so I could meet project deadlines.
 
-The program is very well structured, covering everything from foundational knowledge (Free Tier, IAM, EC2, VPC, RDS, S3) to advanced services (Bedrock, Lambda, Step Functions, Cognito, API Gateway). The 12-week roadmap helped me build knowledge systematically without being overwhelmed by the breadth of the AWS ecosystem. In particular, combining theory with hands-on workshops reinforced the knowledge very effectively.
+**3. Relevance Between Work and Major**  
+Developing the ZeroBug Agent system closely aligns with the Software Engineering major I am pursuing. Not only did I apply programming and system analysis/design thinking, but I also expanded my practical knowledge into Cloud Computing (AWS) and Generative AI—core skills that are highly sought after in today's IT market.
 
-**2. Documentation and Learning Resources**
+**4. Opportunities for Learning & Skill Development**  
+This internship provided invaluable "hands-on" experience. I learned how to design and deploy Serverless architectures (S3, RDS, Lambda), honed my Prompt Engineering skills for large language models (Gemini, Bedrock), and learned how to handle data contexts via RAG. Additionally, my skills in system error analysis and technical documentation writing improved significantly.
 
-The program's documentation is high quality, written clearly with detailed illustrations. The workshops on awsstudygroup.com are regularly updated and closely follow the actual AWS console. However, some newer services like **Amazon Bedrock AgentCore** lack complete Vietnamese documentation, requiring me to self-study from English AWS documentation.
+**5. Culture & Teamwork Spirit**  
+The culture at FCAJ highly values sharing and respect. Even as an intern, my suggestions regarding data flow design or token optimization for AI were attentively listened to and discussed by the team. The teamwork and cross-support spirit made me feel much more confident when tackling entirely new technologies.
 
-**3. Relevance Between Program and Project**
+**6. Policies / Benefits for Interns**  
+The program provides a realistic AWS Sandbox environment (which is very hard to obtain when self-studying), flexible working hours, and high-quality internal guidelines, giving interns ample space and resources to develop and thrive.
 
-The knowledge learned from weeks 1 through 8 (IAM, EC2, RDS, S3, CloudFront, etc.) was directly applied to the ZeroBug Agent architecture. This creates a tight connection between learning content and the real-world project — I wasn't just learning in theory but truly understanding "why" each service was chosen.
+### Other Questions
 
-**4. Learning and Skill Development Opportunities**
+- **What were you most satisfied with during your internship?**  
+  I was most satisfied with directly "touching" core AWS services and successfully building a highly applicable product integrated with AI. The feeling of seeing the Lambda workflow run smoothly and generate accurate Unit Tests is truly amazing.
+  
+- **What do you think the company needs to improve for future interns?**  
+  In the early stages of approaching Amazon Bedrock, I was a bit confused by the rules regarding Quotas and Model Access. If the program provided a detailed guide on Cloud resource limits or common infrastructure errors right from the first week (Onboarding), interns would save a lot of time overcoming initial barriers.
+  
+- **If introducing this to friends, would you recommend they intern here? Why?**  
+  Absolutely yes. This is a truly "hands-on" program, perfect for IT students who want to break away from academic theories in school to rub shoulders with a professional Cloud and AI environment.
 
-The 12 weeks took me from being completely new to AWS to being able to design and deploy a production-grade cloud system. In particular, the experience of integrating **Amazon Bedrock** and **Claude 3 Haiku** into the automated Unit Test generation workflow was the biggest technical highlight I gained from the program.
+### Suggestions & Expectations
 
-**5. Biggest Challenges and Lessons Learned**
+- **Do you have any suggestions to improve the internship experience?**  
+  I suggest organizing short weekly Tech Sharing sessions among intern groups. Sharing experiences about a difficult bug (troubleshooting) encountered (like how to handle Lambda cold-starts or how to write prompts without AI hallucination) will help teams cross-learn very effectively.
+  
+- **Would you like to continue this program in the future?**  
+  I strongly desire the opportunity to continue accompanying and contributing to First Cloud Journey in more in-depth projects after graduation.
 
-- **Most difficult technical challenge**: Configuring the JWT Authorizer to correctly integrate between the Cognito User Pool and API Gateway, handling the token refresh flow for the SPA, and ensuring CORS worked in both dev and production environments.
-- **Most important lesson**: Never hardcode Access Keys into source code. Always use IAM Roles and Temporary Credentials. This is the core cloud security principle I will carry throughout my entire career.
-
-**6. Policies and Benefits**
-
-The $200 AWS Credit package provided through the program is a very practical benefit, allowing me to practice without worrying about costs. The clear guidance on controlling Budgets and Billing Alerts from the beginning of the program also gave me the confidence to experiment with new services.
-
----
-
-### Additional Questions
-
-- What did you find **most satisfying** about participating in the program?
-
-  → Being able to practice directly in a real AWS environment and build a complete product that can go into my portfolio.
-
-- What do you think the program **should improve**?
-
-  → Adding more livestream Q&A sessions or office hours so learners can ask questions directly when facing complex technical problems.
-
-- If recommending to a friend, would you **suggest they join**? Why?
-
-  → Yes, I would recommend it to anyone who wants to learn Cloud and AI in a hands-on way, especially IT students who want to add real-world cloud skills to their resume.
-
----
-
-### Suggestions and Expectations
-
-- I hope the program adds more modules on **Kubernetes on AWS (EKS)** and **DevOps CI/CD** (CodePipeline, CodeBuild) to complete the cloud engineer skillset.
-- I hope to see more content on **Multi-account AWS Organizations** and **AWS Control Tower** for those who want to build large-scale enterprise systems.
-- Continue to maintain the program and expand it to more universities to grow the AWS community in Vietnam.
+- **Other feedback:**  
+  I would like to express my sincere gratitude to the company's board of directors, the FCAJ team, and especially the Mentors who patiently accompanied and guided me with such dedication over the past 3 months!

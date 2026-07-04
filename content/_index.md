@@ -5,16 +5,19 @@ weight: 1
 chapter: false
 ---
 
+    
 # Internship Report
 
+
+
 ### Student Information:
-&emsp; **Full Name:** Nguyen Gia Kiet
+&emsp; **Full Name:** Ngô Kỳ Hoa
 
-&emsp; **Phone Number:** 0901262687 
+&emsp; **Phone Number:** 0337178328 
 
-&emsp; **Email:** nguyengiakiet1404@gmail.com
+&emsp; **Email:** Hoa230969@gmail.com
 
-&emsp; **University:** Ho Chi Minh City University of Technology
+&emsp; **University:** HUTECH University of Technology
 
 &emsp; **Major:** Information Technology
 
@@ -24,9 +27,9 @@ chapter: false
 
 &emsp; **Internship Position:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Internship Duration:** From 19/04/2026 to 12/07/2026
+&emsp; **Internship Duration:** From 20/04/2026 to 12/07/2026
 
-![Your profile picture](/images/avatar.jpg)
+![Your profile picture](/images/417.jpg)
 
 ### Report Content
 

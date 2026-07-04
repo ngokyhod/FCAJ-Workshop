@@ -8,9 +8,10 @@ pre: " <b> 1.4. </b> "
 
 ### Week 4 Objectives:
 
-* Research the mechanism for granting application permissions to access AWS services via AWS IAM.
-* Analyze the security risks of using Access Key / Secret Access Key.
-* Practice deploying an advanced security solution by applying an IAM Role directly to an EC2 Instance.
+*   Practice setting up a custom AWS Virtual Private Cloud (VPC) network infrastructure instead of using the default network.
+*   Design and configure a tiered security network architecture (Public and Private Subnets).
+*   Deploy and attach advanced network routing flows through Internet Gateway (IGW) and NAT Gateway.
+*   Set up server-level security firewalls (Security Groups) and test the system's connectivity.
 
 ### Tasks to be carried out this week:
 <table class="worklog-table">
@@ -33,52 +34,52 @@ pre: " <b> 1.4. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Explore the application authorization problem when interacting with AWS resources <br> - Set up prerequisite infrastructure: create an EC2 Instance and an S3 Bucket for the lab</td>
+      <td class="col-task">- Study and practice Module 02-Lab03-03.1 - Create VPC. <br> - Successfully create a custom VPC with a total IP address range of 10.0.0.0/16.</td>
       <td class="col-date">05/11/2026</td>
       <td class="col-date">05/11/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Study Access Key authorization: create an IAM User and generate an Access Key / Secret Access Key pair</td>
+      <td class="col-task">- Practice Module 02-Lab03-03.2 - Create Subnet. <br> - Implement a tiered security network architecture including Public Subnet and Private Subnet.</td>
       <td class="col-date">05/12/2026</td>
       <td class="col-date">05/12/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Practice configuring and using Access Keys so that the EC2 application can connect to and interact with data in the S3 Bucket</td>
+      <td class="col-task">- Practice Module 02-Lab03-03.3 - Create an Internet Gateway. <br> - Practice Module 02-Lab03-03.4 - Create Route Table for Outbound Internet Routing via Internet Gateway. <br> - Deploy and attach an Internet Gateway (IGW) to the VPC for the Public zone via the Public Route Table (0.0.0.0/0).</td>
       <td class="col-date">05/13/2026</td>
       <td class="col-date">05/13/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Deep-dive analysis of security risks when storing Access Keys in source code <br> - Understand why static Access Keys should not be used for real-world applications</td>
+      <td class="col-task">- Practice Module 02-Lab03-04.3 - Create NAT Gateway. <br> - Study the nature and practical use cases to practice configuring a NAT Gateway. <br> - Configure a one-way routing flow for the Private Route Table to the NAT Gateway.</td>
       <td class="col-date">05/14/2026</td>
       <td class="col-date">05/14/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Research the safer alternative using IAM Roles <br> - Create a new IAM Role with the appropriate Policy to access S3 in place of Access Keys</td>
+      <td class="col-task">- Practice Module 02-Lab03-03.5 - Create security groups. <br> - Study Inbound/Outbound rules and set up instance-level security policies (Security Groups).</td>
       <td class="col-date">05/15/2026</td>
       <td class="col-date">05/15/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Attach the IAM Role to the EC2 Instance Profile <br> - Test access from EC2 to S3 without configuring any static key pair</td>
+      <td class="col-task">- Practice Module 02-Lab03-04.1 - Create EC2 Instances in Subnets. <br> - Create Amazon EC2 virtual servers and allocate them to the correct Subnets (Public/Private).</td>
       <td class="col-date">05/16/2026</td>
       <td class="col-date">05/16/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Evaluate the automatic rotation mechanism of Temporary Credentials provided by IAM Roles <br> - Clean up all created resources (EC2, S3, IAM) to optimize costs</td>
+      <td class="col-task">- Practice Module 02-Lab03-04.2 - Test connection. <br> - Practice Module 02-Lab03-04.5 - EC2 Instance Connect Endpoint. <br> - Perform Ping, SSH tests to EC2 Instances to validate connectivity.</td>
       <td class="col-date">05/17/2026</td>
       <td class="col-date">05/17/2026</td>
-      <td class="col-ref">https://000048.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +87,8 @@ pre: " <b> 1.4. </b> "
 
 ### Week 4 Achievements:
 
-* Clearly understood and differentiated the security levels between static Access Keys and dynamic IAM Roles.
-* Proficient in creating, configuring, and attaching IAM Roles to EC2 for safe AWS resource access.
-* Successfully applied cloud security standards, eliminating hardcoded credentials from application source code.
-* Completed a proper resource cleanup process, protecting the Free Tier account from unexpected charges.
+*   Successfully created a custom VPC (lab-vpc-01) with a total address range of 10.0.0.0/16.
+*   Successfully divided the network into a tiered security architecture including Public Subnet and Private Subnet.
+*   Correctly deployed and attached an Internet Gateway (IGW) to the VPC for the Public zone.
+*   Successfully configured a NAT Gateway and a one-way routing flow for the Private Route Table, securing the internal server system.
+*   Completed the setup of instance-level security policies (Security Groups) and successfully tested system connectivity.

@@ -8,9 +8,9 @@ pre: " <b> 1.2. </b> "
 
 ### Mục tiêu tuần 2:
 
-* Tìm hiểu và thực hành cấu hình dịch vụ quản lý chi phí AWS Budget.
-* Nghiên cứu và triển khai hệ thống quản trị truy cập an toàn với AWS IAM.
-* Áp dụng các nguyên tắc bảo mật nâng cao (Least Privilege, Temporary Access).
+* Tiếp tục tìm hiểu kiến thức nền tảng về AWS Cloud.
+* Nghiên cứu hạ tầng toàn cầu và các công cụ quản lý dịch vụ AWS.
+* Thực hành các bài Lab liên quan đến quản lý và tối ưu chi phí trên AWS.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +33,52 @@ pre: " <b> 1.2. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Tìm hiểu tổng quan AWS Budget và tầm quan trọng của quản lý chi phí Cloud <br> - Phân biệt 4 loại Budget: Cost Budget, Usage Budget, RI Budget, Savings Plans Budget</td>
+      <td class="col-task">- Học Module 01-04: Hạ Tầng Toàn Cầu Của AWS. <br> - Tìm hiểu về Regions, Availability Zones, Edge Locations và cách AWS triển khai hạ tầng trên phạm vi toàn cầu. <br> - Nắm được vai trò của từng thành phần trong việc đảm bảo tính sẵn sàng và khả năng mở rộng của hệ thống.</td>
       <td class="col-date">27/04/2026</td>
       <td class="col-date">27/04/2026</td>
-      <td class="col-ref">https://000007.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Nghiên cứu sâu RI Budget và Savings Plans Budget <br> - So sánh Savings Plans và Reserved Instances cho EC2; đúc kết 5 lợi ích cốt lõi của AWS Budget</td>
+      <td class="col-task">- Học Module 01-05: Công Cụ Quản Lý AWS Services. <br> - Tìm hiểu các công cụ hỗ trợ quản trị và giám sát dịch vụ AWS. <br> - Làm quen với AWS Management Console và các công cụ quản lý tài nguyên trên nền tảng AWS.</td>
       <td class="col-date">28/04/2026</td>
       <td class="col-date">28/04/2026</td>
-      <td class="col-ref">https://000007.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Thực hành thiết lập AWS Budget: xác định mục tiêu, phân tích chi phí hiện tại <br> - Cấu hình ngưỡng cảnh báo 80% và 100%; thiết lập gửi thông báo</td>
+      <td class="col-task">- Học Module 01-06: Tối Ưu Hóa Chi Phí Trên AWS và Làm Việc Với AWS Support. <br> - Tìm hiểu các phương pháp quản lý chi phí, tối ưu tài nguyên sử dụng và các gói hỗ trợ kỹ thuật của AWS.</td>
       <td class="col-date">29/04/2026</td>
       <td class="col-date">29/04/2026</td>
-      <td class="col-ref">https://000007.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Tiếp cận dịch vụ AWS IAM: quản lý User, Group, Policy <br> - Nghiên cứu cơ chế bảo mật nâng cao bằng IAM Role</td>
+      <td class="col-task">- Thực hiện Module 01-Lab07-01: Create Budget by Template. <br> - Tìm hiểu cách sử dụng các mẫu ngân sách có sẵn để theo dõi và kiểm soát chi phí trên AWS.</td>
       <td class="col-date">30/04/2026</td>
       <td class="col-date">30/04/2026</td>
-      <td class="col-ref">https://000002.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Thực hành Lab "IAM User and IAM Group": tạo tổ chức người dùng <br> - Áp dụng các chính sách phân quyền và nguyên tắc Least Privilege</td>
+      <td class="col-task">- Thực hiện Module 01-Lab07-02: Create Cost Budget Tutorial. <br> - Tạo ngân sách chi phí (Cost Budget) và cấu hình các ngưỡng cảnh báo khi vượt mức chi tiêu dự kiến.</td>
       <td class="col-date">01/05/2026</td>
       <td class="col-date">01/05/2026</td>
-      <td class="col-ref">https://000002.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Thực hành Lab "IAM Role" và "Switch Roles": cấu hình cấp quyền tạm thời, session timeout <br> - Nghiên cứu kết hợp CloudTrail để giám sát các hoạt động truy cập hệ thống</td>
+      <td class="col-task">- Thực hiện Module 01-Lab07-03: Creating a Usage Budget in AWS. <br> - Tìm hiểu cách tạo ngân sách dựa trên mức sử dụng tài nguyên AWS và thiết lập các cảnh báo tương ứng.</td>
       <td class="col-date">02/05/2026</td>
       <td class="col-date">02/05/2026</td>
-      <td class="col-ref">https://000002.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Tổng hợp kiến thức tuần 2 <br> - Xem xét lại toàn bộ cấu hình IAM và Budget đã thiết lập</td>
+      <td class="col-task">- Thực hiện Module 01-Lab07-04: Creating a Reservation Instance (RI) Budget. <br> - Tìm hiểu cơ chế quản lý ngân sách đối với Reserved Instances và cách theo dõi mức độ sử dụng nhằm tối ưu chi phí vận hành.</td>
       <td class="col-date">03/05/2026</td>
       <td class="col-date">03/05/2026</td>
-      <td class="col-ref">https://000002.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +86,12 @@ pre: " <b> 1.2. </b> "
 
 ### Kết quả đạt được tuần 2:
 
-* Làm chủ công cụ AWS Budget, biết cách thiết lập cảnh báo ngưỡng chi phí chủ động.
-* Hiểu rõ sự khác biệt giữa các mô hình cam kết chi phí (RI vs Savings Plans).
-* Thành thạo việc khởi tạo và quản lý an toàn hệ thống IAM Users, Groups, Policies và Roles.
-* Áp dụng thành công nguyên tắc Least Privilege và cơ chế Switch Roles để cấp quyền tạm thời an toàn.
+* Hoàn thành các nội dung học tập từ Module 01-04 đến Module 01-06.
+* Hiểu được kiến trúc hạ tầng toàn cầu của AWS và các công cụ quản lý dịch vụ.
+* Nắm được các phương pháp tối ưu chi phí trên nền tảng AWS.
+* Hoàn thành 04 bài Lab liên quan đến AWS Budgets:
+  * Create Budget by Template.
+  * Create Cost Budget Tutorial.
+  * Creating a Usage Budget in AWS.
+  * Creating a Reservation Instance (RI) Budget.
+* Củng cố kỹ năng theo dõi, kiểm soát và tối ưu chi phí khi sử dụng các dịch vụ AWS.

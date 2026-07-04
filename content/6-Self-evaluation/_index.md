@@ -5,32 +5,30 @@ weight: 6
 chapter: false
 pre: " <b> 6. </b> "
 ---
+During my internship at **First Cloud Journey** from **April 20, 2026**, to **July 12, 2026**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.
 
-Over the course of 12 weeks participating in the **First Cloud AI Journey** program, I went through an extensive learning and hands-on journey — from foundational AWS knowledge all the way to designing, building, and deploying the **ZeroBug Agent** system on a real cloud environment.
+I participated in the research and development of the ZeroBug Agent project—a Serverless architecture on AWS (S3, RDS, Lambda) integrated with Generative AI (Bedrock/Gemini) to automate Unit Test generation. The workflow required me to directly design data flows, debug the system, and resolve complex issues such as RAG context retrieval errors or timeout/token limit problems when calling AI models. Through this, I improved my programming skills in Cloud environments, system log analysis for debugging, in-depth Prompt engineering for LLMs, and detailed technical documentation writing.
 
-I participated in developing the **ZeroBug Agent** project — an AI Agent that automatically generates Unit Tests for software projects — using AWS infrastructure including Amazon Cognito, API Gateway, EC2, RDS, Bedrock, Lambda, Step Functions, S3, CloudFront, WAF, and CloudWatch. Through this, I improved my skills in **cloud architecture design, system security, CI/CD deployment, and AI integration**.
+In terms of work ethic, I always strived to complete tasks well, complied with workplace regulations, and actively engaged with colleagues to improve work efficiency.
 
-In terms of work ethic, I always strived to meet each week's objectives on time, proactively self-researched when encountering technical issues, and actively learned from official AWS documentation and the community.
+To objectively reflect on my internship period, I would like to evaluate myself based on the following criteria:
 
-To objectively reflect on my participation in the program, I would like to evaluate myself based on the following criteria:
-
-| No. | Criteria                            | Description                                                                                                    | Good | Fair | Average |
-| --- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---- | ---- | ------- |
-| 1   | **Professional knowledge & skills** | AWS knowledge; applying it to design the ZeroBug Agent system; product quality                                 | ✅    | ☐    | ☐       |
-| 2   | **Ability to learn**                | Quickly absorbing new knowledge about Cognito, API Gateway, Bedrock, and Step Functions                        | ✅    | ☐    | ☐       |
-| 3   | **Proactiveness**                   | Self-researching, proposing architecture ideas, and offering technical solutions without waiting for guidance   | ✅    | ☐    | ☐       |
-| 4   | **Sense of responsibility**         | Completing worklogs on time and ensuring the quality of each project milestone                                  | ✅    | ☐    | ☐       |
-| 5   | **Discipline**                      | Maintaining a regular study and practice schedule each week throughout the 12 weeks                            | ☐    | ✅    | ☐       |
-| 6   | **Progressive mindset**             | Willingness to refactor code when finding better solutions; learning AWS best practices                         | ✅    | ☐    | ☐       |
-| 7   | **Communication**                   | Presenting system architecture and technical results clearly in the workshop report                             | ☐    | ✅    | ☐       |
-| 8   | **Teamwork**                        | Working effectively when discussing technical solutions and integrating backend/frontend                         | ✅    | ☐    | ☐       |
-| 9   | **Professional conduct**            | Respecting processes, committing to information security, and adhering to AWS account usage rules               | ✅    | ☐    | ☐       |
-| 10  | **Problem-solving skills**          | Analyzing and resolving errors that arose during the process of deploying the system to AWS                     | ☐    | ✅    | ☐       |
-| 11  | **Contribution to project**         | Successfully designing and deploying the entire ZeroBug Agent system on the AWS Cloud platform                  | ✅    | ☐    | ☐       |
-| 12  | **Overall**                         | General evaluation of the entire First Cloud AI Journey program participation                                   | ✅    | ☐    | ☐       |
+| No. | Criteria | Description | Good | Fair | Average |
+| :---: | :--- | :--- | :---: | :---: | :---: |
+| 1 | **Professional knowledge & skills** | Understanding of the field, applying knowledge in practice, proficiency with tools, work quality | ✅ | ☐ | ☐ |
+| 2 | **Ability to learn** | Ability to absorb new knowledge and learn quickly | ☐ | ✅ | ☐ |
+| 3 | **Proactiveness** | Taking initiative, seeking out tasks without waiting for instructions | ✅ | ☐ | ☐ |
+| 4 | **Sense of responsibility** | Completing tasks on time and ensuring quality | ✅ | ☐ | ☐ |
+| 5 | **Discipline** | Adhering to schedules, rules, and work processes | ☐ | ☐ | ✅ |
+| 6 | **Progressive mindset** | Willingness to receive feedback and improve oneself | ☐ | ✅ | ☐ |
+| 7 | **Communication** | Presenting ideas and reporting work clearly | ☐ | ✅ | ☐ |
+| 8 | **Teamwork** | Working effectively with colleagues and participating in teams | ✅ | ☐ | ☐ |
+| 9 | **Professional conduct** | Respecting colleagues, partners, and the work environment | ✅ | ☐ | ☐ |
+| 10 | **Problem-solving skills** | Identifying problems, proposing solutions, and showing creativity | ☐ | ✅ | ☐ |
+| 11 | **Contribution to project/team** | Work effectiveness, innovative ideas, recognition from the team | ✅ | ☐ | ☐ |
+| 12 | **Overall** | General evaluation of the entire internship period | ✅ | ☐ | ☐ |
 
 ### Needs Improvement
 
-* Strengthen discipline and consistency in daily study habits; avoid leaving work to pile up at the end of the week.
-* Improve debugging skills and the ability to interpret CloudWatch logs when system issues arise.
-* Enhance technical presentation skills to make complex topics more understandable to those less familiar with cloud computing.
+* Strengthen discipline and strictly comply with the rules and regulations of the company or any organization.
+* Improve problem-solving thinking.

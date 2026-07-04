@@ -8,9 +8,9 @@ pre: " <b> 1.10. </b> "
 
 ### Mục tiêu tuần 10:
 
-* Khởi tạo và cấu hình các dịch vụ hạ tầng AWS cốt lõi theo sơ đồ kiến trúc đã thiết kế.
-* Triển khai mã nguồn ứng dụng (Back-end và Front-end) lên môi trường đám mây.
-* Thiết lập kết nối an toàn giữa máy chủ ứng dụng và hệ quản trị cơ sở dữ liệu trên AWS.
+*   Tái cấu trúc kiến trúc hệ thống, chuyển đổi mô hình xử lý tĩnh tại local sang kiến trúc Serverless động trên AWS nhằm cải thiện hiệu năng.
+*   Hoàn thiện "Lõi AI" với luồng Retrieval-Augmented Generation và Google Gemini API.
+*   Phát triển hệ thống API quản lý dự án và tích hợp Amazon RDS (PostgreSQL) để quản lý siêu dữ liệu.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +33,52 @@ pre: " <b> 1.10. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Cấu hình môi trường mạng an toàn: tạo VPC, Public/Private Subnets, Internet Gateway và NAT Gateway <br> - Thiết lập Security Groups và Network ACLs kiểm soát luồng traffic</td>
+      <td class="col-task">- Tái cấu trúc hệ thống: Bắt đầu chuyển đổi luồng xử lý nặng từ local lên hạ tầng AWS Cloud để tăng tính mở rộng. <br> - Chuẩn bị môi trường Cloud: Tạo IAM User và cấp quyền truy cập cần thiết cho các dịch vụ S3 và RDS. Kiểm tra quyền và cấu hình AWS CLI phục vụ quá trình triển khai.</td>
       <td class="col-date">22/06/2026</td>
       <td class="col-date">22/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Khởi tạo Amazon RDS trong Private Subnet để đảm bảo an toàn dữ liệu <br> - Cấu hình tài khoản truy cập, phân quyền và import schema/seed data vào database</td>
+      <td class="col-task">- Thiết kế Cơ sở dữ liệu: Xây dựng sơ đồ cơ sở dữ liệu trên Amazon RDS (PostgreSQL) lưu trữ siêu dữ liệu (Metadata) bao gồm: thông tin Người dùng, danh sách Dự án (Git/Zip, thời gian tạo) và Lịch sử sinh mã của AI. <br> - Cấu hình Routing: Thực hiện cấu hình Amazon Route 53, tạo Hosted Zone cho tên miền của hệ thống và tạo DNS Record trỏ đến CloudFront Distribution theo kiến trúc đã thiết kế.</td>
       <td class="col-date">23/06/2026</td>
       <td class="col-date">23/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Khởi tạo Amazon EC2 Instance làm Application Server <br> - Cấu hình Runtime environment, cài đặt công cụ bổ trợ và AWS CLI trên máy chủ</td>
+      <td class="col-task">- Phát triển Lambda 1 (Project Import - Git/Zip): Tiếp nhận mã nguồn, giải nén và đồng bộ dữ liệu thô lên Amazon S3, đồng thời ghi nhận siêu dữ liệu dự án vào RDS. Sử dụng VPC Endpoint để tối ưu quyền truy cập S3 và tránh Timeout. <br> - Cấu hình CDN: Triển khai Amazon CloudFront Distribution, cấu hình Origin kết nối đến API Gateway và thiết lập Cache Behaviors cho API & Static Assets.</td>
       <td class="col-date">24/06/2026</td>
       <td class="col-date">24/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Đóng gói và triển khai mã nguồn Back-end lên AWS <br> - Cấu hình biến môi trường và Connection String an toàn từ máy chủ tới RDS</td>
+      <td class="col-task">- Hoàn thiện Core AI: Triển khai thành công luồng RAG thực thi việc đọc dữ liệu ngữ cảnh từ kho lưu trữ Amazon S3 và giao tiếp với Google Gemini API để tự động sinh mã nguồn Unit Test. <br> - Bảo mật luồng truyền tải: Thực hiện cấu hình SSL Certificate, gắn Custom Domain cho CloudFront và kiểm tra khả năng truy cập an toàn qua giao thức HTTPS. <br> - Phát triển Lambda 2 (File Tree Service): Xây dựng hàm đọc cấu trúc thư mục, duyệt qua các file mã nguồn đã lưu trên Amazon S3 và trả về định dạng cây (Tree) cho Frontend hiển thị danh sách file.</td>
       <td class="col-date">25/06/2026</td>
       <td class="col-date">25/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Triển khai phần Front-end (host static files trên S3 + CloudFront hoặc AWS Amplify) <br> - Cấu hình đường dẫn API từ Front-end về đúng địa chỉ Back-end trên AWS</td>
+      <td class="col-task">- Phát triển Lambda 3 (API Invoke Service): Xây dựng hàm cầu nối giao tiếp trực tiếp với AI. Hàm chịu trách nhiệm truyền dữ liệu Prompt và Context một cách bảo mật. <br> - Phát triển Lambda 4 (Rag Context Lambda): Xây dựng logic gom nhóm và tiền xử lý ngữ cảnh trước khi đưa vào mô hình ngôn ngữ lớn.</td>
       <td class="col-date">26/06/2026</td>
       <td class="col-date">26/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Cấu hình phân quyền nâng cao với IAM Roles, loại bỏ Access Key tĩnh trong mã nguồn <br> - Upload media (hình ảnh, tài liệu) lên S3 Bucket và kiểm tra quyền truy cập</td>
+      <td class="col-task">- Phát triển Lambda 5 (Result And History Service): Hàm tiếp nhận phản hồi từ AI, lọc bỏ cú pháp Markdown thừa, lưu kết quả Unit Test tinh khiết lên S3 và ghi nhận vào bảng Lịch sử trong RDS để Frontend truy xuất. <br> - Tích hợp Spring Boot Backend: Thiết lập lớp ProjectApiController làm cầu nối giao tiếp giữa giao diện và các hàm AWS Lambda thông qua AWS SDK. <br> - Khắc phục sự cố: Xử lý triệt để các xung đột ánh xạ API và thiết lập cấu hình giải quyết lỗi thiếu Bean trong Spring Boot để đảm bảo luồng nghiệp vụ thông suốt.</td>
       <td class="col-date">27/06/2026</td>
       <td class="col-date">27/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Chạy thử nghiệm End-to-End toàn bộ ứng dụng trên môi trường Cloud <br> - Đảm bảo các dịch vụ AWS phối hợp hoạt động mượt mà</td>
+      <td class="col-task">- Kiểm thử End-to-End (E2E): Chạy thực nghiệm toàn bộ chu trình sinh Unit Test tự động xuyên suốt từ: Frontend -> Backend -> AWS Lambda -> S3 & RDS. <br> - Đánh giá: Rà soát toàn bộ cấu hình hạ tầng AWS đã thực hiện, đánh giá hiệu năng xử lý của các hàm Lambda và khả năng phản hồi của Google Gemini API. <br> - Ghi nhận kết quả triển khai, hoàn tất chuẩn hóa code và cập nhật tài liệu kỹ thuật.</td>
       <td class="col-date">28/06/2026</td>
       <td class="col-date">28/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,6 +86,7 @@ pre: " <b> 1.10. </b> "
 
 ### Kết quả đạt được tuần 10:
 
-* Xây dựng thành công hạ tầng mạng và lưu trữ an toàn trên AWS cho đồ án tốt nghiệp.
-* Triển khai đồng bộ Front-end và Back-end lên đám mây, kích hoạt cơ sở dữ liệu được quản lý hoàn toàn.
-* Hệ thống chạy ổn định, các thành phần kết nối chính xác và tuân thủ nguyên tắc bảo mật tài khoản.
+*   Chuyển đổi thành công kiến trúc từ Local sang Serverless với việc đóng gói và triển khai 5 AWS Lambda functions (Import, Result, History, Invoke, FileTree).
+*   Triển khai thành công luồng Core AI RAG kết nối ổn định với Google Gemini API, sinh ra mã Unit Test làm sạch markdown tự động.
+*   Tích hợp hoàn thiện cơ sở dữ liệu Amazon RDS để quản lý Metadata người dùng và dự án.
+*   Kết nối liền mạch toàn bộ hệ thống từ Frontend qua Backend xuống hệ sinh thái Serverless AWS.

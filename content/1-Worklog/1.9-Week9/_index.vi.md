@@ -8,9 +8,10 @@ pre: " <b> 1.9. </b> "
 
 ### Mục tiêu tuần 9:
 
-* Nghiên cứu và lên ý tưởng tổng quan cho đồ án tốt nghiệp, xác định bài toán và công nghệ cốt lõi.
-* Thiết kế sơ đồ kiến trúc hệ thống (System Architecture Diagram) tối ưu, an toàn và có khả năng mở rộng.
-* Tổng hợp và lựa chọn các dịch vụ hạ tầng AWS phù hợp để triển khai đồ án.
+*   Tối ưu hóa truy vấn cơ sở dữ liệu véc-tơ bằng pgvector.
+*   Hoàn thiện luồng điều phối dữ liệu tích hợp giữa Chunking, Embedding và Database.
+*   Chuẩn bị môi trường Agentic sử dụng Google Gemini API để tạo Unit Test.
+*   Chuẩn bị triển khai kiến trúc hạ tầng mạng bảo mật và phân phối nội dung với Amazon Route 53, CloudFront và AWS WAF.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +34,45 @@ pre: " <b> 1.9. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Khảo sát các đề tài thực tế, phân tích nhu cầu người dùng và xác định mục tiêu cốt lõi của đồ án <br> - Lựa chọn mô hình kiến trúc phù hợp dựa trên thế mạnh công nghệ hiện có</td>
+      <td class="col-task">- Rà soát lại toàn bộ kiến trúc triển khai hạ tầng của đồ án, đối chiếu các thành phần Backend hiện tại với sơ đồ hạ tầng AWS dự kiến triển khai. <br> - Nghiên cứu cơ chế Truy vấn tìm kiếm lai trong cơ sở dữ liệu véc-tơ để tối ưu hóa độ chính xác khi tìm kiếm mã nguồn.</td>
       <td class="col-date">15/06/2026</td>
       <td class="col-date">15/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Phác thảo luồng dữ liệu (Data Flow) và kịch bản tương tác người dùng trong hệ thống <br> - Xác định các thành phần nghiệp vụ chính cần triển khai</td>
+      <td class="col-task">- Viết các câu lệnh SQL chuyên sâu kết hợp với thư viện pgvector trong Spring Boot. <br> - Áp dụng phép đo khoảng cách Cosine Similarity của pgvector để truy xuất và xếp hạng các khối mã nguồn có ý nghĩa tương đồng nhất với truy vấn của người dùng.</td>
       <td class="col-date">16/06/2026</td>
       <td class="col-date">16/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Thiết kế sơ đồ kiến trúc hệ thống tổng thể (High-Level Architecture) <br> - Định hình mô hình bảo mật đa tầng và phân chia Public/Private Subnets</td>
+      <td class="col-task">- Hoàn thiện luồng Điều phối dữ liệu VectorStoreService ở tầng Backend. <br> - Lắp ráp các module Phân mảnh mã nguồn và Nhúng dữ thành một chu trình xử lý khép kín và tự động.</td>
       <td class="col-date">17/06/2026</td>
       <td class="col-date">17/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Lập danh sách và phân tích các dịch vụ compute/storage AWS sẽ áp dụng (EC2, S3...) <br> - Lựa chọn giải pháp cơ sở dữ liệu phù hợp (RDS cho cấu trúc hoặc DynamoDB cho NoSQL)</td>
+      <td class="col-task">- Nghiên cứu quy trình cấu hình các dịch vụ phục vụ lớp phân phối nội dung và bảo mật hạ tầng mạng trên AWS. <br> - Phân tích mô hình triển khai Amazon Route 53, Amazon CloudFront và các luật bảo mật của AWS WAF để bảo vệ API Gateway cho các luồng xử lý Backend.</td>
       <td class="col-date">18/06/2026</td>
       <td class="col-date">18/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Nghiên cứu phương án tích hợp dịch vụ nâng cao AWS: IAM phân quyền, CloudFront CDN, Lambda/Bedrock AI <br> - Đánh giá khả năng tích hợp AI để tự động hóa các tính năng nghiệp vụ</td>
-      <td class="col-date">19/06/2026</td>
-      <td class="col-date">19/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-task">- Kiểm thử hệ thống luồng dữ liệu Backend: Xây dựng các API nội bộ để mô phỏng và đánh giá End-to-End luồng nạp mã nguồn. <br> - Chạy thực nghiệm để xác nhận dữ liệu véc-tơ từ Gemini API được tạo ra định dạng chuẩn và lưu trữ chính xác vào cơ sở dữ liệu PostgreSQL.</td>
+      <td class="col-date">20/06/2026</td>
+      <td class="col-date">20/06/2026</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Tổng hợp danh mục hạ tầng AWS, đối chiếu với Free Tier để ước tính chi phí vận hành <br> - Đảm bảo hệ thống nằm trong tầm kiểm soát ngân sách</td>
-      <td class="col-date">20/06/2026</td>
-      <td class="col-date">20/06/2026</td>
-      <td class="col-ref"></td>
-    </tr>
-    <tr>
-      <td class="col-day">7</td>
-      <td class="col-task">- Hoàn thiện tài liệu thuyết minh kiến trúc và sơ đồ hạ tầng <br> - Chuẩn bị báo cáo tiến độ và sẵn sàng bước vào giai đoạn hiện thực hóa</td>
+      <td class="col-task">- Chuẩn bị môi trường Agentic: Lên phương án tích hợp và xây dựng cấu trúc Prompt cho Google Gemini API để hệ thống có thể tiếp nhận dữ liệu ngữ cảnh vừa truy xuất từ Vector Database. Đây là bước đệm quan trọng cho giai đoạn tự động sinh Unit Test. <br> - Tổng hợp tài liệu thiết kế và chuẩn bị môi trường để bắt đầu cấu hình thực tế các dịch vụ hạ tầng AWS vào tuần tiếp theo.</td>
       <td class="col-date">21/06/2026</td>
       <td class="col-date">21/06/2026</td>
-      <td class="col-ref"></td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +80,8 @@ pre: " <b> 1.9. </b> "
 
 ### Kết quả đạt được tuần 9:
 
-* Định hình rõ ràng ý tưởng đề tài đồ án ZeroBug Agent với các tính năng và luồng nghiệp vụ cụ thể.
-* Hoàn thành bản thiết kế sơ đồ kiến trúc hệ thống trực quan, tuân thủ AWS Well-Architected Framework.
-* Xác lập danh sách chi tiết các dịch vụ AWS kèm phương án cấu hình và phân quyền rõ ràng.
-* Đảm bảo kiến trúc khả thi cao, tận dụng điện toán đám mây và tối ưu hóa chi phí Free Tier.
+*   Lập trình thành công tính năng tìm kiếm ngữ cảnh dựa trên Cosine Similarity của pgvector, đảm bảo AI tìm được đúng đoạn code liên quan.
+*   Hoàn thiện chu trình VectorStoreService với khả năng xử lý Chunking, gọi Embedding API và Batch Insert mượt mà.
+*   Xây dựng thành công hệ thống API nội bộ để kiểm thử luồng dữ liệu, xác nhận dữ liệu véc-tơ được lưu trữ chính xác.
+*   Lên được phương án triển khai bảo mật AWS WAF, Route 53 và CloudFront để bảo vệ Backend.
+*   Sẵn sàng luồng dữ liệu Context để đưa vào Google Gemini sinh mã Unit Test tự động.

@@ -6,15 +6,14 @@ chapter: false
 ---
 
 # Báo cáo thực tập
-
 ### Thông tin sinh viên:
-&emsp; **Họ và tên:** Nguyễn Gia Kiệt
+&emsp; **Họ và tên:** Ngô Kỳ Hoa
 
-&emsp; **Số điện thoại:** 0901262687
+&emsp; **Số điện thoại:** 0337178328
 
-&emsp; **Email:** nguyengiakiet1404@gmail.com
+&emsp; **Email:** Hoa230969@gmail.com
 
-&emsp; **Trường:** Đại học Công nghệ TP.HCM (Hutech)
+&emsp; **Trường:** Đại học công nghệ Hutech
 
 &emsp; **Ngành:** Công nghệ thông tin
 
@@ -24,9 +23,11 @@ chapter: false
 
 &emsp; **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Thời gian thực tập:** Từ ngày 19/04/2026 đến ngày 12/07/2026
+&emsp; **Thời gian thực tập:** Từ ngày 20/04/2026 đến ngày 12/07/2026
 
-![Ảnh đại diện của bạn](/images/avatar.jpg)
+![Ảnh đại diện của bạn](/images/417.jpg)
+
+
 
 ### Nội dung báo cáo
 

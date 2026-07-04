@@ -8,9 +8,10 @@ pre: " <b> 1.8. </b> "
 
 ### Mục tiêu tuần 8:
 
-* Nghiên cứu dịch vụ Amazon Lightsail và giải pháp tối ưu hóa chi phí trên AWS.
-* Thực hành triển khai song song 3 ứng dụng mã nguồn mở: WordPress, PrestaShop và Akaunting.
-* Khai thác các tính năng quản trị nâng cao: bảo mật, Snapshot, Scaling và cảnh báo giám sát (Alarms).
+*   Thiết lập hạ tầng Vector Database (PostgreSQL với pgvector).
+*   Cấu hình ORM Hibernate để hỗ trợ định dạng dữ liệu véc-tơ.
+*   Tích hợp bảo mật và kết nối ứng dụng Spring Boot với hạ tầng AWS.
+*   Triển khai quy trình nhúng dữ liệu sử dụng Gemini API.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +34,52 @@ pre: " <b> 1.8. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Tìm hiểu tổng quan Amazon Lightsail: máy chủ ảo nhanh, tiết kiệm chi phí cho ứng dụng vừa và nhỏ <br> - Nghiên cứu cơ chế tính phí (720 giờ miễn phí đầu) và ước tính ngân sách thử nghiệm</td>
+      <td class="col-task">- Thiết lập hạ tầng Vector Database: Tiến hành cài đặt và khởi chạy máy chủ PostgreSQL tích hợp extension pgvector. <br> - Cấu hình môi trường để Backend Spring Boot kết nối được với container cơ sở dữ liệu.</td>
       <td class="col-date">08/06/2026</td>
       <td class="col-date">08/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Thực hành bước đầu: khởi tạo và cấu hình Database instance độc lập được quản lý trên Lightsail</td>
+      <td class="col-task">- Cấu hình ORM Hibernate trong Spring Boot: Xây dựng các Entity lớp @Entity hỗ trợ kiểu dữ liệu mảng. <br> - Định nghĩa cấu hình cho cột embedding với định dạng vector(1024) để đảm bảo tính tương thích khi lưu trữ các ma trận véc-tơ sau này.</td>
       <td class="col-date">09/06/2026</td>
       <td class="col-date">09/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Triển khai ứng dụng WordPress (Blog/Website) trên Ubuntu OS Blueprint <br> - Cấu hình mạng (Static IP, Firewall) và hoàn thiện thiết lập WordPress</td>
+      <td class="col-task">- Kiểm tra tính sẵn sàng của các client dịch vụ (S3, RDS) để đảm bảo Backend có đầy đủ quyền truy cập tài nguyên cloud.</td>
       <td class="col-date">10/06/2026</td>
       <td class="col-date">10/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Triển khai ứng dụng PrestaShop (Website thương mại điện tử) dùng Application Blueprint <br> - Thiết lập sơ đồ cổng mạng và khởi chạy giao diện bán hàng</td>
+      <td class="col-task">- Chuyển đổi chiến lược nhúng dữ liệu: Sửa đổi logic để thay thế mô hình Titan Embedding cũ bằng việc gọi trực tiếp Google Gemini API. <br> - Viết Service xử lý kết nối, gửi dữ liệu văn bản từ Document Chunks qua API Gemini để lấy về các ma trận véc-tơ tương ứng.</td>
       <td class="col-date">11/06/2026</td>
       <td class="col-date">11/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Triển khai ứng dụng Akaunting (Quản lý tài chính doanh nghiệp) <br> - Cấu hình hạ tầng mạng riêng biệt và hoàn tất thiết lập nền tảng kế toán</td>
+      <td class="col-task">- Phát triển logic lưu trữ véc-tơ: Lập trình hàm lưu trữ kết quả Embedding từ Gemini API vào cột vector(1024) trong PostgreSQL. <br> - Kiểm thử đơn vị (Unit Test) cho luồng dữ liệu từ lúc đọc file đến khi lưu trữ thành công vào Database.</td>
       <td class="col-date">12/06/2026</td>
       <td class="col-date">12/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Cấu hình bảo mật ứng dụng (Application Security) và tạo Snapshot phòng ngừa rủi ro <br> - Thực hành nâng cấp lên cấu hình máy chủ lớn hơn (Upgrading to a larger instance)</td>
+      <td class="col-task">- Tối ưu hóa dữ liệu: Xử lý các trường hợp văn bản vượt quá giới hạn token của API Gemini bằng cách cắt nhỏ trước khi gửi đi. <br> - Đảm bảo định dạng đầu ra của véc-tơ khớp hoàn toàn với cấu trúc yêu cầu của pgvector ([0.1, 0.2, ...]).</td>
       <td class="col-date">13/06/2026</td>
       <td class="col-date">13/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Thiết lập hệ thống cảnh báo tự động (Create Alarm) để giám sát hiệu năng hệ thống <br> - Dọn dẹp toàn bộ tài nguyên Lightsail đã tạo trong tuần</td>
+      <td class="col-task">- Tổng hợp và kiểm tra luồng nhúng dữ liệu: Thực hiện chạy thử nghiệm quy trình nạp dữ liệu từ máy cá nhân lên cơ sở dữ liệu véc-tơ. <br> - Xác nhận dữ liệu đã được nhúng và lưu trữ chính xác, sẵn sàng cho giai đoạn thực hiện truy vấn Cosine Similarity ở tuần tiếp theo.</td>
       <td class="col-date">14/06/2026</td>
       <td class="col-date">14/06/2026</td>
-      <td class="col-ref">https://000045.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +87,7 @@ pre: " <b> 1.8. </b> "
 
 ### Kết quả đạt được tuần 8:
 
-* Nắm vững kiến thức thực hành về Amazon Lightsail, phân biệt được OS Blueprint và Application Blueprint.
-* Triển khai thành công 3 hệ thống ứng dụng thực tế (CMS, E-Commerce, Finance) ổn định trên Cloud.
-* Thành thạo tư duy vận hành production: bảo mật, sao lưu, cảnh báo và mở rộng quy mô phần cứng linh hoạt.
-* Hoàn thành dọn dẹp hạ tầng Lightsail chuẩn xác, kiểm soát an toàn ngân sách tài khoản Free Tier.
+*   Triển khai thành công PostgreSQL với extension pgvector, tối ưu chi phí và tài nguyên phát triển cục bộ.
+*   Cấu hình thành công Hibernate để Spring Boot tương tác được với kiểu dữ liệu vector(1024).
+*   Chuyển đổi thành công sang sử dụng API của Google Gemini để thực hiện nhúng dữ liệu cho các khối mã nguồn.
+*   Hệ thống hóa quy trình nhúng và lưu trữ véc-tơ, đảm bảo dữ liệu mã nguồn đã sẵn sàng để chuyển sang bước truy vấn tương đồng ở tuần tới.

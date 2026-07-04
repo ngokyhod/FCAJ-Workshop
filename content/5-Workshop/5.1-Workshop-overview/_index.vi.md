@@ -1,66 +1,47 @@
+﻿---
+title: "Giới thiệu"
+date: 2024-01-01
+weight: 1
+chapter: false
+pre: " <b> 5.1. </b> "
 ---
-title : "Giới thiệu"
-date : 2024-01-01 
-weight : 1 
-chapter : false
-pre : " <b> 5.1. </b> "
----
 
-#### Tổng quan về xác thực và ủy quyền trong ZeroBug Agent
+#### Tổng quan ZeroBug Agent
 
-**ZeroBug Agent** là một nền tảng web + desktop, do đó việc bảo vệ tất cả các API khỏi truy cập trái phép là yêu cầu bắt buộc. Hệ thống áp dụng mô hình xác thực dựa trên **JSON Web Token (JWT)** kết hợp giữa **Amazon Cognito User Pool** (cấp token) và **Amazon API Gateway** với **Cognito Authorizer** (kiểm tra token).
+Nền tảng AI trên AWS sinh Unit Test (Java/JUnit, Python/pytest, .NET/xUnit). Import Git/Zip → IDE → Generate Test qua **Amazon Bedrock Mantle** (`openai.gpt-oss-120b`).
 
-Trong workshop này, bạn sẽ tự tay thiết lập toàn bộ luồng xác thực: tạo User Pool, cấu hình App Client cho Vite SPA, bảo vệ REST API bằng Cognito Authorizer, rồi kiểm chứng bằng cách lấy JWT Token và gọi thử API.
+#### Phân công 5 thành viên — 1 account chung
 
-#### Luồng xác thực chính
+| Thành viên | Khối | Mục workshop |
+| --- | --- | --- |
+| Trí | IAM + VPC + NAT + SG | [5.3](../5.3-tv1-iam-vpc/) |
+| Kiệt | S3 + RDS + Secrets DB + pgvector + Bedrock model access | [5.4](../5.4-tv2-data-secrets/) |
+| Toàn | EC2 Spring Boot + ALB | [5.5](../5.5-TV3-ec2-alb/) |
+| Hoa | Lambda + Step Functions + Bedrock Mantle | [5.6](../5.6-TV4-serverless/) |
+| Trinh | Cognito + API GW + CloudFront + WAF | [5.7](../5.7-tv5-auth-edge/) |
+
+#### Luồng production
 
 ```
-[Vite SPA / Electron Desktop Client]
-        │
-        │  1. Đăng nhập (username + password) qua Amazon Cognito
-        ▼
-[Amazon Cognito – User Pool]
-        │
-        │  2. Trả về: IdToken, AccessToken, RefreshToken
-        ▼
-[Front-end lưu token]
-        │
-        │  3. Gọi API kèm header: Authorization: <IdToken>
-        ▼
-[Amazon API Gateway – REST API + Cognito Authorizer]
-        │
-        │  4. Authorizer xác thực token với Cognito User Pool (JWKS)
-        ▼
-[Application Load Balancer – Public Subnet]
-        │
-        ▼
-[Amazon EC2 – Spring Boot Backend – Private Subnet]
-        │
-        ▼
-[Kết quả trả về cho Client]
+Client → CloudFront → WAF → API Gateway (JWT) → ALB → EC2
+  → Step Functions
+    → ProjectImportLambda → S3
+    → ContextBuilderLambda (embed + pgvector trên RDS)
+    → BedrockInvokeLambda (chat Mantle)
+    → ResultServiceLambda / HistoryServiceLambda → RDS
 ```
 
-{{% notice note %}}
-Với **REST API + Cognito Authorizer**, token được gắn **trực tiếp** vào header `Authorization` (giá trị là chuỗi token thuần, **không** cần tiền tố `Bearer `). Đây là điểm khác biệt quan trọng so với HTTP API JWT Authorizer.
+#### Thay đổi quan trọng
+
+| | Ý tưởng cũ | Workshop |
+| --- | --- | --- |
+| AI chat | Bedrock Claude | **Bedrock Mantle** (`openai.gpt-oss-120b`, `us-east-1`) |
+| AI context | — | **RAG gọn (A):** embed `cohere.embed-multilingual-v3` → pgvector `code_embeddings` trên RDS |
+| DNS | Route 53 | **CloudFront `*.cloudfront.net`** |
+| Trigger | — | EC2 → Step Fn trực tiếp (không SQS) |
+
+{{% notice warning %}}
+NAT Gateway **không free tier**. Xóa khi xong — [5.10](../5.10-cleanup/).
 {{% /notice %}}
 
-#### Các thành phần tham gia
-
-| Thành phần | Vai trò |
-| --- | --- |
-| **Amazon Cognito User Pool** | Quản lý tài khoản người dùng, cấp JWT Token, xác thực email |
-| **App Client (Cognito)** | Cấu hình cho Vite SPA — kiểu **Public client / SPA** (không cần Client Secret) |
-| **Amazon API Gateway** | Cổng REST API công khai; gắn Cognito Authorizer bảo vệ các route |
-| **Cognito Authorizer** | Tự động xác thực token với Cognito User Pool trước khi cho request đi tiếp |
-| **EC2 Spring Boot** | Backend nhận request đã xác thực và xử lý nghiệp vụ |
-
-#### Phạm vi workshop
-
-Workshop tập trung vào **xác thực đầu–cuối** với Cognito và API Gateway:
-
-- Tạo và cấu hình Amazon Cognito User Pool + App Client (SPA).
-- Tạo REST API với các resource `/auth`, `/projects`, `/aws`.
-- Bảo vệ API bằng Cognito Authorizer; cấu hình CORS; deploy stage `prod`.
-- Lấy JWT Token và kiểm chứng: không token → `401`, có token hợp lệ → `200`, dùng Refresh Token để lấy token mới.
-
-![Sơ đồ tổng quan Workshop](/images/5-Workshop/5.1-Workshop-overview/diagram1.png)
+<!-- Hình: /images/5-Workshop/5.1-Workshop-overview/diagram1.png -->

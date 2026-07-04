@@ -8,9 +8,9 @@ pre: " <b> 1.1. </b> "
 
 ### Mục tiêu tuần 1:
 
-* Tìm hiểu và tối ưu hóa tài khoản AWS Free Tier 2025.
-* Nghiên cứu chiến lược nhận và sử dụng gói Credit trị giá $200.
-* Xây dựng sơ đồ kiến trúc mẫu và thiết lập hệ thống cảnh báo chi phí.
+* Đăng ký và kích hoạt tài khoản AWS.
+* Tìm hiểu kiến thức nền tảng về điện toán đám mây thông qua Module 01.
+* Hoàn thành các nhiệm vụ thực hành để nhận AWS Credits.
 
 ### Các công việc cần triển khai trong tuần này:
 <table class="worklog-table">
@@ -33,52 +33,52 @@ pre: " <b> 1.1. </b> "
   <tbody>
     <tr>
       <td class="col-day">1</td>
-      <td class="col-task">- Tìm hiểu tổng quan những thay đổi của AWS Free Tier 2025 <br> - Phân tích, so sánh chi tiết giữa Gói miễn phí (Free Plan) và Gói trả phí (Paid Plan)</td>
+      <td class="col-task">- Đăng ký tài khoản AWS. <br> - Hoàn thiện các bước xác thực và kích hoạt tài khoản.</td>
       <td class="col-date">20/04/2026</td>
       <td class="col-date">20/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">2</td>
-      <td class="col-task">- Nghiên cứu chiến lược tổng thể để tối ưu hóa và nhận toàn bộ $200 AWS Credit <br> - Lập lộ trình thực hiện các nhiệm vụ để tối đa hóa số Credit nhận được</td>
+      <td class="col-task">- Làm quen với giao diện AWS Management Console. <br> - Tìm hiểu các dịch vụ cơ bản trên nền tảng AWS.</td>
       <td class="col-date">21/04/2026</td>
       <td class="col-date">21/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">3</td>
-      <td class="col-task">- Triển khai chi tiết 05 Task thực hành "Kiếm Credit" cốt lõi <br> - Thực hành cấu hình các dịch vụ nền tảng nằm trong danh sách nhiệm vụ</td>
+      <td class="col-task">- Học Module 01-01: Điện Toán Đám Mây Là Gì? <br> - Thực hiện Task Amazon Bedrock để tìm hiểu dịch vụ AI tạo sinh trên AWS. <br> - Hoàn thành nhiệm vụ và ghi nhận kết quả trên hệ thống.</td>
       <td class="col-date">22/04/2026</td>
       <td class="col-date">22/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">4</td>
-      <td class="col-task">- Tìm hiểu các lỗi cấu hình Credit "Killers" và cách phòng tránh <br> - Nghiên cứu các mô hình kiến trúc mẫu (Sample Architectures) tối ưu trong phạm vi $200</td>
+      <td class="col-task">- Học Module 01-02: Điều Gì Tạo Nên Sự Khác Biệt Của AWS? <br> - Thực hiện Task Aurora and RDS. <br> - Tìm hiểu dịch vụ cơ sở dữ liệu được quản lý trên AWS.</td>
       <td class="col-date">23/04/2026</td>
       <td class="col-date">23/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">5</td>
-      <td class="col-task">- Tìm hiểu phương pháp Giám sát (Monitoring) và chiến lược Cost Optimization trên AWS <br> - Thiết lập hệ thống cảnh báo Billing Alerts để kiểm soát ngân sách</td>
+      <td class="col-task">- Ôn tập kiến thức từ Module 01-01 và Module 01-02. <br> - Thực hiện Task AWS Lambda. <br> - Tìm hiểu mô hình Serverless và cách triển khai hàm xử lý trên AWS.</td>
       <td class="col-date">24/04/2026</td>
       <td class="col-date">24/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">6</td>
-      <td class="col-task">- Giải đáp các thắc mắc thường gặp qua bộ tài liệu FAQ <br> - Xây dựng lộ trình học tập AWS dài hạn (AWS Learning Roadmap) kết hợp với Free Tier</td>
+      <td class="col-task">- Học Module 01-03: Bắt Đầu Hành Trình Lên Mây Như Thế Nào? <br> - Thực hiện Task Amazon EC2. <br> - Tìm hiểu cách khởi tạo và quản lý máy chủ ảo trên nền tảng AWS.</td>
       <td class="col-date">25/04/2026</td>
       <td class="col-date">25/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
     <tr>
       <td class="col-day">7</td>
-      <td class="col-task">- Tổng hợp kiến thức tuần 1 <br> - Kiểm tra và xác nhận nhận thành công $200 AWS Credit</td>
+      <td class="col-task">- Tổng hợp kiến thức đã học trong Module 01. <br> - Kiểm tra kết quả các nhiệm vụ đã hoàn thành. <br> - Xác nhận nhận thành công 100 USD AWS Credits.</td>
       <td class="col-date">26/04/2026</td>
       <td class="col-date">26/04/2026</td>
-      <td class="col-ref">https://000001.awsstudygroup.com</td>
+      <td class="col-ref"><https://cloudjourney.awsstudygroup.com/></td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +86,14 @@ pre: " <b> 1.1. </b> "
 
 ### Kết quả đạt được tuần 1:
 
-* Nắm vững cơ chế hoạt động và giới hạn của AWS Free Tier 2025, phân biệt rõ các gói dịch vụ.
-* Hoàn thành bộ hướng dẫn 05 nhiệm vụ thực hành và chiến lược tối ưu để nhận $200 Credit.
-* Nhận diện được các rủi ro phát sinh chi phí và biết cách áp dụng kiến trúc mẫu an toàn.
-* Làm chủ công cụ giám sát chi phí và xác lập lộ trình học AWS bài bản tiếp theo.
+* Đăng ký thành công tài khoản AWS.
+* Hoàn thành các nội dung học tập:
+  * Module 01-01: Điện Toán Đám Mây Là Gì?
+  * Module 01-02: Điều Gì Tạo Nên Sự Khác Biệt Của AWS?
+  * Module 01-03: Bắt Đầu Hành Trình Lên Mây Như Thế Nào?
+* Hoàn thành 04 nhiệm vụ thực hành:
+  * Amazon Bedrock
+  * Aurora and RDS
+  * AWS Lambda
+  * Amazon EC2
+* Nhận thành công 100 USD AWS Credits để phục vụ học tập và thực hành trên AWS.

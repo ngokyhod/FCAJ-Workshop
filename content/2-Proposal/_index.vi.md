@@ -15,22 +15,23 @@ pre: " <b> 2. </b> "
 
 **ZeroBug Agent** là hệ thống AI trên nền tảng Amazon Web Services (AWS), hỗ trợ tự động sinh Unit Test từ mã nguồn dự án. Hệ thống hỗ trợ ba ngôn ngữ trọng tâm: **Java** (JUnit 5 + Mockito), **Python** (pytest) và **C# / .NET** (xUnit).
 
-Thay vì chỉ gửi một file code rời rạc cho AI, người dùng import toàn bộ dự án (Git hoặc Zip), duyệt cây thư mục trên giao diện IDE, mô tả yêu cầu kiểm thử bằng ngôn ngữ tự nhiên. Backend thu thập các file source liên quan theo loại ngôn ngữ, đóng gói ngữ cảnh (context) và gửi tới Amazon Bedrock (Claude 3 Haiku) để sinh mã test.
+Người dùng import toàn bộ dự án (Git hoặc Zip), duyệt cây thư mục trên giao diện IDE, mô tả yêu cầu kiểm thử bằng ngôn ngữ tự nhiên. Backend thu thập ngữ cảnh liên quan qua pipeline **RAG gọn** (embedding + truy vấn vector trên RDS), sau đó gọi **Amazon Bedrock Mantle** (`openai.gpt-oss-120b`) để sinh mã test.
 
 **Mục tiêu chính:**
 
 - Giảm thời gian viết Unit Test cho developer / QA.
-- Tăng gợi ý test case nhờ AI với ngữ cảnh nhiều file liên quan.
-- Trải nghiệm gần IDE: xem source, sinh test, copy kết quả.
-- Triển khai production trên AWS với bảo mật và giám sát đầy đủ.
-- Desktop client (Electron) cho người dùng cuối — chỉ cần WiFi và cài app.
+- Tăng chất lượng gợi ý test case nhờ AI với ngữ cảnh đa file và RAG.
+- Trải nghiệm gần IDE: xem source, sinh test, copy kết quả, xem lịch sử.
+- Triển khai production trên AWS với bảo mật, giám sát và kiểm soát chi phí.
+- Desktop client (Electron) — người dùng chỉ cần WiFi và cài app.
 
 **Phạm vi đồ án:**
 
 - Sinh Unit Test (chưa tự động chạy test suite trên CI).
 - Ngôn ngữ: Java, Python, .NET (C#).
 - Import project qua Git public hoặc Upload Zip.
-- Kiến trúc: Frontend (Vite SPA / Electron) + Backend (Spring Boot trên EC2 trong VPC) + AWS Step Functions (orchestration) + AWS Lambda + các dịch vụ AWS (Route 53, CloudFront, WAF, API Gateway, ALB, Cognito, S3, RDS, Bedrock, Secrets Manager, CloudWatch, SNS, Budgets, IAM).
+- Kiến trúc: Frontend (Vite SPA / Electron) + Backend (Spring Boot trên EC2 trong VPC) + AWS Step Functions + 6 Lambda + các dịch vụ AWS (CloudFront, WAF, API Gateway, ALB, Cognito, S3, RDS, pgvector, Bedrock Mantle, Secrets Manager, CloudWatch, SNS, Budgets, IAM).
+- Triển khai nhóm **5 thành viên** trên **một tài khoản AWS chung**, phân khối TV1–TV5 theo Workshop.
 
 **Đối tượng sử dụng:**
 
@@ -46,9 +47,10 @@ Thay vì chỉ gửi một file code rời rạc cho AI, người dùng import t
 ```
 Đăng ký / Đăng nhập (Amazon Cognito)
   → Tạo dự án (chọn ngôn ngữ: Java / Python / .NET; Import Git hoặc Zip)
+  → ProjectImportLambda → S3; ContextBuilderLambda chunk + embed → pgvector trên RDS
   → Mở IDE (Explorer + Monaco Editor)
   → Nhập yêu cầu kiểm thử
-  → Generate Test (Step Functions → Lambda + Bedrock)
+  → Generate Test (Step Functions → ContextBuilder retrieve → BedrockInvokeLambda chat Mantle)
   → Xem / Copy kết quả; lịch sử lưu trên RDS
 ```
 
@@ -57,15 +59,11 @@ Thay vì chỉ gửi một file code rời rạc cho AI, người dùng import t
 ```
 [Electron Desktop Client / Web Browser (Vite SPA)]
       ↓
-[Amazon Route 53 — DNS]
-      ↓
-[Amazon CloudFront]
+[Amazon CloudFront — *.cloudfront.net]
       ↓
 [AWS WAF — Web ACL]
       ↓
-[Amazon Cognito — Sign-in / JWT Token]
-      ↓
-[Amazon API Gateway — REST API, JWT Authorizer]
+[Amazon API Gateway — REST API, JWT Authorizer (Cognito)]
       ↓
 [Application Load Balancer — Public Subnet]
       ↓
@@ -73,14 +71,16 @@ Thay vì chỉ gửi một file code rời rạc cho AI, người dùng import t
       ↓ (AWS SDK invoke)
 [AWS Step Functions Workflow]
       ↓
-[AWS Lambda: Context Builder | Source File Service | AI Invoke Service]
+[Lambda: ProjectImport | SourceFileService | ContextBuilder | BedrockInvoke | Result | History]
       ↓
-[Amazon S3 — Source Code]  [AWS Secrets Manager — Credentials]
+[Amazon S3 — Source Code]  [AWS Secrets Manager — DB Credentials]
       ↓
-[Amazon Bedrock — Claude 3 Haiku (us-east-1)]
+[Amazon Bedrock Mantle — us-east-1: chat + embedding (cross-region qua NAT)]
       ↓
-[Amazon RDS PostgreSQL — Metadata / Results / History]
+[Amazon RDS PostgreSQL — Metadata / Results / History / code_embeddings (pgvector)]
 ```
+
+> **Lưu ý:** Không dùng Route 53; URL production là domain mặc định CloudFront (`d....cloudfront.net`).
 
 #### 2.2. Quản lý người dùng (Amazon Cognito)
 
@@ -92,48 +92,44 @@ Thay vì chỉ gửi một file code rời rạc cho AI, người dùng import t
 
 #### 2.3. Quản lý dự án
 
-- **Import Git:** clone repository public (JGit shallow clone), loại bỏ `.git`, validate có file source; Step Functions Project Import xử lý và upload S3.
-- **Upload Zip:** giải nén, nhận thư mục gốc; Step Functions Project Import upload S3.
-- Metadata (tên, loại ngôn ngữ, sourceType, userId) lưu Amazon RDS PostgreSQL.
-- `projectLanguage`: JAVA | PYTHON | DOTNET (chọn khi tạo hoặc auto-detect từ `pom.xml` / `requirements.txt` / `*.csproj` nếu có).
+- **Import Git:** clone repository public (JGit shallow clone), loại bỏ `.git`, validate có file source; **`ProjectImportLambda`** xử lý và upload S3.
+- **Upload Zip:** giải nén, nhận thư mục gốc; **`ProjectImportLambda`** upload S3.
+- Sau import: **`ContextBuilderLambda`** chunk source, gọi Mantle embedding, lưu vector vào bảng **`code_embeddings`** trên RDS.
+- Metadata (tên, loại ngôn ngữ, sourceType, userId) lưu Amazon RDS PostgreSQL (JPA tự tạo bảng ứng dụng khi EC2 khởi động).
+- `projectLanguage`: JAVA | PYTHON | DOTNET.
 - Xóa dự án: xóa metadata RDS và object trên S3.
 
 #### 2.4. Không gian làm việc IDE (Workspace)
 
-- **Explorer:** cây thư mục; lọc thư mục nhiễu (`.git`, `node_modules`, `target`, `build`, `dist`, `__pycache__`, `bin`, `obj`, …).
+- **Explorer:** cây thư mục qua **`SourceFileServiceLambda`**; lọc thư mục nhiễu (`.git`, `node_modules`, `target`, …).
 - **Editor:** Monaco Editor (read-only), syntax highlight theo ngôn ngữ file.
 - **AI Test Agent:** textarea yêu cầu + nút Generate Test.
 - **Kết quả:** hiển thị mã test theo framework (JUnit / pytest / xUnit); copy.
 
-#### 2.5. Sinh test bằng AI (Step Functions + Lambda + Bedrock)
+#### 2.5. Sinh test bằng AI (Step Functions + Lambda + Bedrock Mantle)
 
-1. Người dùng nhập yêu cầu (ví dụ: *"Viết test cho OrderService — thanh toán thành công và số dư không đủ"*).
+1. Người dùng nhập yêu cầu kiểm thử.
 2. Spring Boot trên EC2 gọi AWS Step Functions workflow qua AWS SDK.
-3. Lambda **Context Builder** (Java | Python | .NET) đọc source từ S3 và credential từ AWS Secrets Manager; lọc file theo `projectLanguage`:
-   - **JAVA:** file `*.java` (loại trừ thư mục test)
-   - **PYTHON:** file `*.py` (loại trừ `tests/`, `__pycache__`)
-   - **DOTNET:** file `*.cs` (loại trừ `*Tests*`, `*Test*`, `obj/`, `bin/`)
-4. Lambda **Source File Service** đọc cây thư mục / nội dung file từ S3.
-5. **Relevance scoring:** xếp hạng file theo từ khóa trong yêu cầu; bonus path chứa service, controller, handler, …
-6. Gom context (giới hạn ~120.000 ký tự) từ S3.
-7. Lambda **AI Invoke Service** gọi Amazon Bedrock (Claude 3 Haiku, us-east-1) với prompt template theo ngôn ngữ (JUnit 5 / pytest / xUnit).
-8. Step Functions — **Result Service** (Save & Return): lưu kết quả vào RDS.
-9. Step Functions — **History Service** (Persist): ghi `generation_records` trên RDS; trả kết quả cho client.
+3. **`ContextBuilderLambda`**: đọc source từ S3; chunk văn bản; gọi **`POST /v1/embeddings`** (model `cohere.embed-multilingual-v3`); lưu vector vào **`code_embeddings`**; retrieve top-k chunk liên quan theo `project_id`.
+4. **`BedrockInvokeLambda`**: nhận `context` từ Step Functions; gọi **`POST /v1/chat/completions`** (model `openai.gpt-oss-120b`) với prompt template theo ngôn ngữ (JUnit 5 / pytest / xUnit).
+5. **`ResultServiceLambda`**: lưu kết quả sinh test vào RDS.
+6. **`HistoryServiceLambda`**: ghi `generation_records` trên RDS; trả kết quả cho client.
 
-> Chế độ dev local: `AWS_ENABLED=false` trả template mock theo ngôn ngữ (không gọi Bedrock) — chỉ dùng khi phát triển trên máy dev, không phải production.
+Xác thực Mantle: Bearer token **`BEDROCK_MANTLE_API_KEY`** trên biến môi trường Lambda (Hoa tạo API key từ Bedrock Console `us-east-1`). Lambda chạy VPC private subnet, gọi Mantle cross-region qua NAT Gateway.
+
+> Chế độ dev local: `AWS_ENABLED=false` trả template mock — chỉ dùng khi phát triển trên máy dev.
 
 #### 2.6. Giám sát và vận hành
 
-- Trang chủ / IDE: panel trạng thái RDS, S3, Bedrock (`/api/aws/status`).
-- Amazon CloudWatch: log tập trung từ EC2, Lambda, API Gateway.
-- CloudWatch Alarms: ngưỡng lỗi Bedrock, RDS connection, EC2 health → SNS.
-- Amazon SNS: gửi email / notification khi alarm kích hoạt.
-- AWS Budgets: cảnh báo chi phí vượt ngưỡng (Bedrock, EC2, RDS, …).
-- Frontend: banner trạng thái kết nối backend (offline demo / cloud).
+- Trang chủ / IDE: panel trạng thái RDS, S3, Bedrock Mantle (`/api/aws/status`).
+- Amazon CloudWatch: log tập trung từ EC2, Lambda, API Gateway, Step Functions.
+- CloudWatch Alarms: lỗi Lambda, RDS CPU, ALB unhealthy host → SNS.
+- Amazon SNS: gửi email khi alarm kích hoạt.
+- AWS Budgets: cảnh báo chi phí vượt ngưỡng.
 
 #### 2.7. Desktop client
 
-- Electron thin client: load URL production qua Route 53 → CloudFront (HTTPS).
+- Electron thin client: load URL production qua CloudFront (HTTPS).
 - Người dùng cuối: cài `ZeroBugAgent-Setup.exe`, bật WiFi, đăng nhập Cognito.
 - Không cần cài Java, Docker hay AWS CLI trên máy client.
 
@@ -143,65 +139,87 @@ Thay vì chỉ gửi một file code rời rạc cho AI, người dùng import t
 
 #### 3.1. Sơ đồ kiến trúc
 
-![ZeroBug Agent Architecture](/images/2-Proposal/architecture.jfif)
+![ZeroBug Agent Architecture](/images/2-Proposal/architecture.png)
 
 #### 3.2. Dịch vụ AWS (production)
 
 | Dịch vụ | Region | Vai trò |
 | --- | --- | --- |
-| Amazon Route 53 | Global | DNS trỏ domain tới CloudFront |
-| Amazon CloudFront | Global | CDN; phân phối nội dung tĩnh / edge |
-| AWS WAF | Global | Web ACL gắn CloudFront; chặn request độc hại, rate limit |
+| Amazon CloudFront | Global | CDN HTTPS; URL production `*.cloudfront.net` |
+| AWS WAF | Global / Regional | Web ACL; rate limit, core rules |
 | Amazon API Gateway | ap-southeast-1 | REST API public; JWT Authorizer |
 | Amazon Cognito | ap-southeast-1 | User Pool; Sign-in / JWT Token |
 | Application Load Balancer | ap-southeast-1 | ALB Public Subnet; forward tới EC2 Private Subnet |
-| Amazon EC2 | ap-southeast-1 | Spring Boot JAR trong VPC Private Subnet; invoke Step Functions |
-| AWS Step Functions | ap-southeast-1 | Orchestration: Import, Result, History |
-| AWS Lambda | ap-southeast-1 | Context Builder, Source File Service, AI Invoke |
-| Amazon S3 | ap-southeast-1 | Lưu source code project |
-| Amazon RDS (PostgreSQL) | ap-southeast-1 | Metadata, results, history (JPA) |
-| Amazon Bedrock Runtime | us-east-1 | Claude 3 Haiku — sinh Unit Test |
-| AWS Secrets Manager | ap-southeast-1 | RDS credentials; Lambda đọc secret |
+| Amazon EC2 | ap-southeast-1 | Spring Boot JAR Private Subnet; invoke Step Functions |
+| AWS Step Functions | ap-southeast-1 | Orchestration workflow sinh test |
+| AWS Lambda (×6) | ap-southeast-1 | ProjectImport, SourceFileService, ContextBuilder, BedrockInvoke, Result, History |
+| Amazon S3 | ap-southeast-1 | Lưu source code + prefix `deploy/` cho JAR |
+| Amazon RDS (PostgreSQL 15) | ap-southeast-1 | Metadata, results, history; pgvector `code_embeddings` |
+| Amazon Bedrock Mantle | us-east-1 | Chat `openai.gpt-oss-120b` + embedding `cohere.embed-multilingual-v3` |
+| AWS Secrets Manager | ap-southeast-1 | RDS credentials (`zerobug/rds/credentials`) |
+| NAT Gateway | ap-southeast-1 | Lambda private subnet ra internet → Mantle cross-region |
 | Amazon CloudWatch | ap-southeast-1 | Log EC2, Lambda, Step Fn, API GW |
 | Amazon SNS | ap-southeast-1 | Nhận CloudWatch Alarm |
 | AWS Budgets | Global | Cảnh báo chi phí vượt ngưỡng |
-| AWS IAM | — | Role EC2, Lambda, Step Functions |
+| AWS IAM | — | Users nhóm; Role EC2, Lambda, Step Functions |
 
-URL production: `https://<domain>.com` (Route 53) → CloudFront → WAF → API GW (EC2 nằm Private Subnet; không expose trực tiếp ra internet).
+URL production: `https://d....cloudfront.net` → WAF → API Gateway → ALB → EC2 (Private Subnet).
 
-#### 3.3. Thành phần ứng dụng
+#### 3.3. Phân công triển khai nhóm (Workshop)
+
+| Thành viên | Khối | Nội dung chính |
+| --- | --- | --- |
+| Trí | TV1 | IAM, VPC, Subnet, NAT, Security Groups |
+| Kiệt | TV2 | S3, RDS, Secrets Manager, pgvector, Bedrock model access |
+| Toàn | TV3 | EC2 Spring Boot, ALB, Target Group |
+| Hoa | TV4 | 6 Lambda, Step Functions, Bedrock Mantle API key |
+| Trinh | TV5 | Cognito, API Gateway, CloudFront, WAF |
+
+Thứ tự: **Trí → Kiệt → Toàn → Hoa → Trinh → kiểm thử E2E**.
+
+#### 3.4. Thành phần ứng dụng
 
 | Lớp | Công nghệ | Mô tả |
 | --- | --- | --- |
 | Frontend | Vite, JavaScript SPA | Giao diện web; Cognito SDK / JWT |
 | Backend EC2 | Spring Boot 3, Java 17 | REST API; invoke Step Functions SDK |
-| Orchestration | AWS Step Functions | Workflow Import → Result → History |
-| Backend λ | AWS Lambda (Java/Py) | Context Builder, Source File, AI Invoke |
+| Orchestration | AWS Step Functions | Workflow Import → Context → Chat → Result → History |
+| Backend λ | AWS Lambda (Java) | 6 functions serverless |
 | Desktop | Electron 28 | Thin client, NSIS installer `.exe` |
 | Import Git | Eclipse JGit | Clone repo public → upload S3 |
 | Load balancer | ALB | Public Subnet; forward tới EC2 Private |
-
-#### 3.4. Môi trường
-
-| Profile | Database | Storage | Auth | AI |
-| --- | --- | --- | --- | --- |
-| cloud | RDS PostgreSQL | S3 | Cognito JWT | Bedrock Haiku |
-| desktop/dev | H2 local | Local disk | Mock / Cognito | Mock response |
+| Vector store | pgvector trên RDS | Bảng `code_embeddings`, dimension 1024 |
 
 #### 3.5. Triển khai và vận hành
 
-- Build: `build-all.bat` → Vite build FE vào `backend/static` + Maven package JAR + deploy Lambda artifacts + Step Functions state machine.
-- VPC: Public Subnet (ALB) + Private Subnet (EC2, RDS).
-- EC2: JAR + systemd trong Private Subnet; IAM Role invoke Step Functions.
-- ALB: target group trỏ EC2; nhận traffic từ API Gateway.
-- Lambda: deploy 3 functions; IAM Role `bedrock:InvokeModel` + S3 + Secrets Manager.
-- Step Functions: state machine orchestrate Import, Result, History.
-- API Gateway: stage production; JWT Authorizer (Cognito).
-- CloudFront + WAF: phân phối edge; Web ACL bảo vệ.
-- Route 53: alias tới CloudFront distribution.
-- RDS: Security Group chỉ cho phép EC2 và Lambda (trong VPC Private Subnet).
-- CloudWatch: log groups cho EC2, Lambda, Step Functions; alarm → SNS.
-- Budgets: monthly budget alert qua email SNS.
+- Build: `build-all.bat` → Vite build FE + Maven package JAR + artifact Lambda.
+- VPC: Public Subnet (ALB) + Private Subnet (EC2, RDS, Lambda).
+- EC2: JAR + systemd Private Subnet; IAM Role invoke Step Functions.
+- Lambda: VPC private subnet + NAT; env `BEDROCK_MANTLE_API_KEY`; đọc Secret DB runtime.
+- RDS: PostgreSQL 15, Private Subnet; extension `vector`; bảng ứng dụng qua JPA (`ddl-auto=update`).
+- CloudFront + WAF + API Gateway + Cognito: lớp edge và xác thực.
+- CloudWatch + SNS + Budgets: giám sát và cảnh báo chi phí.
+
+#### 3.6. Ước tính chi phí vận hành (tham khảo)
+
+| Hạng mục | Cấu hình gợi ý | Chi phí/tháng (USD) |
+| --- | --- | --- |
+| EC2 | t3.micro + EBS 30 GB gp3 | ~10 |
+| RDS PostgreSQL | db.t3/t4g.micro, Single-AZ, 20 GB | ~17–20 |
+| Lambda | ~300.000 request/tháng | ~0 |
+| API Gateway | ~300.000 request/tháng | ~0 |
+| Cognito | ~20 user | ~0 |
+| S3 | ~5 GB Standard | ~0,12 |
+| Secrets Manager | 1 secret DB | ~0,40 |
+| WAF | 1 Web ACL + rules | ~7 |
+| ALB | + LCU traffic thấp | ~17 |
+| **Tổng (ước tính)** | | **~54 USD/tháng** |
+
+Nếu còn **AWS Free Tier** (EC2, RDS…), các hạng mục không free tier còn lại chủ yếu **WAF (~7 USD) + ALB (~17 USD) + Secrets (~0,8 USD) ≈ 25 USD/tháng**.
+
+{{% notice warning %}}
+**NAT Gateway** không thuộc Free Tier (~32 USD/tháng nếu bật liên tục). Workshop khuyến nghị xóa sau khi hoàn thành. Chi phí Bedrock Mantle inference (chat + embedding) cộng thêm theo mức sử dụng thực tế.
+{{% /notice %}}
 
 ---
 
@@ -212,43 +230,53 @@ URL production: `https://<domain>.com` (Route 53) → CloudFront → WAF → API
 | Thành phần | Công nghệ |
 | --- | --- |
 | Backend EC2 | Java 17, Spring Boot 3.2, Spring Data JPA |
-| Backend Lambda | Java 17 (hoặc Python 3.12 cho function nhẹ) |
+| Backend Lambda | Java 17 |
 | Frontend | JavaScript (ES modules), Vite 5 |
 | Desktop | Electron, electron-builder |
-| Database | PostgreSQL (RDS), H2 (dev) |
-| Build | Maven, npm, AWS SAM / CLI (Lambda deploy) |
+| Database | PostgreSQL 15 (RDS + pgvector), H2 (dev) |
+| Build | Maven, npm, AWS CLI |
 | Import Git | Eclipse JGit |
 | Auth | Amazon Cognito User Pool |
-| API edge | Amazon API Gateway, AWS WAF |
+| API edge | Amazon API Gateway, AWS WAF, CloudFront |
 
-#### 4.2. Mô hình ngôn ngữ lớn (LLM)
+#### 4.2. Mô hình AI (Bedrock Mantle)
 
-| Model | Mục đích | Ghi chú |
+| Model | Mục đích | Endpoint |
 | --- | --- | --- |
-| Claude 3 Haiku (`anthropic.claude-3-haiku-20240307-v1:0`) | Phân tích source + sinh Unit Test cho Java / Python / .NET | Model duy nhất; tối ưu chi phí. Region: us-east-1 |
+| `openai.gpt-oss-120b` | Phân tích context + sinh Unit Test (chat) | `POST /v1/chat/completions` |
+| `cohere.embed-multilingual-v3` | Embedding chunk source cho RAG (vector 1024) | `POST /v1/embeddings` |
 
-#### 4.3. Kỹ thuật xử lý ngữ cảnh (Context Builder — Lambda)
+- Mantle base URL: `https://bedrock-mantle.us-east-1.api.aws`
+- Lambda region: `ap-southeast-1`; inference Mantle: `us-east-1` (cross-region).
+- RAG top-k gợi ý: `5`.
+
+#### 4.3. Pipeline RAG gọn (Context Builder)
+
+| Bước | Thực hiện |
+| --- | --- |
+| 1 | Đọc source từ S3, chunk văn bản |
+| 2 | Gọi Mantle embedding (`input_type: search_document`) |
+| 3 | Lưu vector vào RDS bảng `code_embeddings` |
+| 4 | Khi generate: embed câu hỏi (`search_query`), retrieve top-k theo `project_id` |
+| 5 | Truyền `context` cho BedrockInvokeLambda sinh test |
 
 | Ngôn ngữ | File lọc | Framework output |
 | --- | --- | --- |
-| JAVA | `*.java`; exclude `*/test/*` | JUnit 5 + Mockito |
+| JAVA | `*.java`; exclude test dirs | JUnit 5 + Mockito |
 | PYTHON | `*.py`; exclude `tests/`, `__pycache__` | pytest |
-| DOTNET | `*.cs`; exclude `*Test*`, `obj/`, `bin/` | xUnit (+ Moq nếu cần) |
-
-Các bước chung: lọc thư mục nhiễu → relevance scoring → giới hạn context ~120.000 ký tự → giới hạn hiển thị file IDE >512KB không load full.
-
-Không dùng Amazon Bedrock Knowledge Bases / RAG trong phiên bản này; ngữ cảnh thu thập trực tiếp từ S3 qua heuristic.
+| DOTNET | `*.cs`; exclude `*Test*`, `obj/`, `bin/` | xUnit |
 
 #### 4.4. Bảo mật
 
 | Hạng mục | Giải pháp |
 | --- | --- |
 | Xác thực user | Amazon Cognito + JWT; API Gateway Authorizer |
-| Mật khẩu DB / secret | AWS Secrets Manager; EC2/Lambda đọc lúc runtime |
+| Mật khẩu DB | AWS Secrets Manager; EC2/Lambda đọc lúc runtime |
+| Mantle API key | Biến môi trường Lambda; không commit vào Git |
 | AWS credentials | IAM Role (EC2, Lambda); không hardcode access key |
-| Network | WAF trên CloudFront; VPC Private Subnet; RDS trong VPC |
-| HTTPS | Route 53 + CloudFront + ACM cert |
-| Phân quyền | Cognito Groups USER / ADMIN; kiểm tra owner project |
+| Network | WAF; VPC Private Subnet; RDS không public |
+| HTTPS | CloudFront + ACM |
+| Phân quyền | Cognito Groups USER / ADMIN |
 
 #### 4.5. API chính
 
@@ -260,11 +288,11 @@ Không dùng Amazon Bedrock Knowledge Bases / RAG trong phiên bản này; ngữ
 | GET | `/api/projects` | Danh sách dự án |
 | POST | `/api/projects/import/git` | Import Git → Step Fn → S3 |
 | POST | `/api/projects/import/zip` | Upload Zip → Step Fn → S3 |
-| GET | `/api/projects/{id}/files` | Cây thư mục (S3 via Lambda) |
-| GET | `/api/projects/{id}/file` | Nội dung file (Source File Svc) |
-| POST | `/api/projects/{id}/generate` | Generate → Step Fn → Bedrock |
+| GET | `/api/projects/{id}/files` | Cây thư mục (SourceFileService) |
+| GET | `/api/projects/{id}/file` | Nội dung file |
+| POST | `/api/projects/{id}/generate` | Generate → Step Fn → Mantle chat |
 | GET | `/api/generations/recent` | Lịch sử sinh test |
-| GET | `/api/aws/status` | Trạng thái RDS / S3 / Bedrock |
+| GET | `/api/aws/status` | Trạng thái RDS / S3 / Bedrock Mantle |
 | DELETE | `/api/projects/{id}` | Xóa dự án |
 
 ---
@@ -275,29 +303,27 @@ Không dùng Amazon Bedrock Knowledge Bases / RAG trong phiên bản này; ngữ
 
 | Thách thức | Giải pháp triển khai |
 | --- | --- |
-| Chi phí token cao | Lọc file theo ngôn ngữ; giới hạn 120KB context; dùng Claude Haiku; AWS Budgets alert |
-| Chọn sai file / thiếu ngữ cảnh | Relevance scoring; user duyệt IDE trước khi generate; Language Router theo project |
-| Đa ngôn ngữ (Java/Python/.NET) | `projectLanguage` + prompt template riêng; Context Builder filter extension khác nhau |
-| Bảo mật API public | WAF + Cognito JWT + API Gateway Authorizer; Secrets Manager; IAM least privilege |
-| Credential lộ trên server | Bỏ `cloud.env` plaintext; Secrets Manager rotation |
-| Import Git tốn disk EC2 | Step Functions Project Import xử lý tạm; upload S3; dọn temp sau import |
-| Timeout sinh test AI | Step Functions + Lambda AI Invoke (timeout 5–15 phút); async workflow nếu cần |
-| Giám sát lỗi production | CloudWatch Logs + Alarms → SNS email |
-| Chi phí AWS vượt ngân sách | AWS Budgets + SNS; dùng Haiku, không Sonnet |
+| Chi phí vận hành AWS | Ước tính ~54 USD/tháng; Budgets + SNS; dọn NAT/RDS sau workshop |
+| Ngữ cảnh AI thiếu / sai file | RAG pgvector trên RDS; top-k retrieve; lọc file theo ngôn ngữ |
+| Đa ngôn ngữ (Java/Python/.NET) | `projectLanguage` + prompt template riêng; Context Builder filter extension |
+| Bảo mật API public | WAF + Cognito JWT + API Gateway Authorizer; Secrets Manager |
+| Credential lộ trên server | Secrets Manager; IAM Role; không hardcode password/API key |
+| Lambda gọi Mantle cross-region | NAT Gateway + env `BEDROCK_MANTLE_API_KEY`; model access `us-east-1` |
+| Phối hợp nhóm 5 người | Bảng tham số chung; triển khai theo thứ tự TV1→TV5; checklist bàn giao |
+| Giám sát lỗi production | CloudWatch Logs + Alarms → SNS |
 | Người dùng cuối cài đặt | Electron thin client; không cần Java local |
-| Tách FE / BE khi dev | Vite SPA + REST; FE dev `:5173` proxy `/api` |
 
 #### 5.2. Hướng đi tổng thể
 
-1. Production-ready trên AWS: mọi dịch vụ trên sơ đồ kiến trúc đều được cấu hình và sử dụng khi hệ thống vận hành.
-2. EC2 (Spring Boot) điều phối API; AWS Step Functions orchestrate pipeline; Lambda xử lý logic nặng — tách trách nhiệm rõ ràng.
-3. Edge layer (Route 53, CloudFront, WAF, Cognito, API Gateway, ALB) bảo vệ và chuẩn hóa truy cập trước khi vào VPC Private Subnet.
-4. Đa ngôn ngữ Java / Python / .NET trong cùng một nền tảng, mở rộng bằng thêm bộ lọc file + prompt template.
-5. Dev local: profile desktop + mock AI; production cloud bắt buộc full AWS stack.
+1. Production-ready trên AWS theo kiến trúc Workshop: CloudFront edge, VPC private, serverless AI pipeline.
+2. EC2 (Spring Boot) điều phối API; Step Functions orchestrate; 6 Lambda xử lý import, RAG, chat, lưu kết quả.
+3. RAG gọn trên RDS pgvector thay OpenSearch — phù hợp quy mô đồ án và chi phí.
+4. Bedrock Mantle thay Claude Haiku — chat + embedding thống nhất qua Mantle API.
+5. Không Route 53; dùng CloudFront domain mặc định cho demo/production workshop.
 
 #### 5.3. Kết quả mong đợi
 
 - Nền tảng web + desktop sinh Unit Test cho Java, Python và .NET.
-- Triển khai AWS end-to-end: Route 53, CloudFront, WAF, API Gateway, ALB, Cognito, EC2 (VPC), Step Functions, Lambda, S3, RDS, Bedrock, Secrets Manager, CloudWatch, SNS, Budgets.
-- Tích hợp Amazon Bedrock vào quy trình QA với kiểm soát chi phí và bảo mật.
-- Tài liệu và sơ đồ kiến trúc khớp với hệ thống thực tế triển khai.
+- Triển khai AWS end-to-end theo Workshop: CloudFront, WAF, API Gateway, ALB, Cognito, EC2, Step Functions, Lambda, S3, RDS, pgvector, Bedrock Mantle, Secrets Manager, CloudWatch, SNS, Budgets.
+- Tích hợp AI vào quy trình QA với RAG và kiểm soát chi phí (~54 USD/tháng ước tính).
+- Tài liệu Proposal, Workshop và báo cáo khớp với hệ thống triển khai thực tế.

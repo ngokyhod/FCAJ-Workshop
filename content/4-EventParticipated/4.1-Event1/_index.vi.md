@@ -6,118 +6,130 @@ chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
-# Bài thu hoạch chi tiết – FCAJ Community Day
 
-### I. Mục đích và ý nghĩa của việc tham gia sự kiện
 
-Việc tham gia hội thảo **FCAJ Community Day** đã mang lại cơ hội quý báu để tiếp cận và cập nhật những xu hướng công nghệ mang tính đột phá nhất hiện nay, đặc biệt trong hai lĩnh vực **Điện toán đám mây (Cloud Computing)** và **AI tạo sinh (Generative AI)**.
+# Bài thu hoạch sự kiện "FCAJ Community Day June 2026"
 
-Sự kiện không đơn thuần là buổi chia sẻ kiến thức lý thuyết, mà còn là không gian mở giúp tiếp thu kinh nghiệm thực chiến về Trí tuệ nhân tạo, hạ tầng Cloud và quy trình phát triển ứng dụng hiện đại từ các chuyên gia đầu ngành. Đồng thời, đây cũng là cầu nối tuyệt vời để giao lưu và học hỏi từ cộng đồng những người đam mê công nghệ. Thông qua các phiên thảo luận chuyên sâu, em đã thấu hiểu cách thức các doanh nghiệp thực tế tối ưu hóa quy trình bằng AI, vận dụng các dịch vụ tiên tiến của AWS, từ đó định hình rõ hơn con đường phát triển nghề nghiệp tương lai.
+**Chủ đề: Cloud, AI & Agentic Applications in Modern Enterprises**
 
-### II. Danh sách các diễn giả khách mời
+### Mục Đích Của Sự Kiện
+*	Chia sẻ xu hướng phát triển của Cloud Computing và AI trong doanh nghiệp hiện đại.
+*	Giới thiệu các ứng dụng Agentic AI và DevOps Agent trong vận hành hệ thống.
+*	Cung cấp góc nhìn thực tế về lộ trình nghề nghiệp trong lĩnh vực Cloud và AI.
+*	Giới thiệu công nghệ Voice AI, AI Agent và các giải pháp AI dành cho doanh nghiệp.
+*	Hướng dẫn ứng dụng AI vào các lĩnh vực như DevOps, vận hành hệ thống và quản trị nhân sự.
 
-- **Tinh Truong** – Speaker chuyên trách về mảng AI & Context Engineering
-- **Anh Pham** – Speaker đại diện chia sẻ về giải pháp Amazon Quick
-- **Thinh Nguyen** – Speaker chuyên sâu về tối ưu hạ tầng với Amazon CloudFront
-- **Team VIB** – Đội ngũ tài năng bước ra từ cuộc thi chạy nước rút LotusHacks Hackathon
-- **Duc Dao** – Speaker đi sâu vào bản chất kỹ thuật của các Mô hình ngôn ngữ lớn (LLM)
-- **Vy Lam** – Speaker chuyên gia về Triển khai hệ thống AI cấp doanh nghiệp (Enterprise AI Systems)
+### Danh Sách Diễn Giả
+*	**Truong Tran** – AI Solution Sales, Noventiq
+*	**Steve Tran** – CTO/Founder, CloudThinker
+*	**Trung Vu** – CEO, Revve AI
+*	**Anh Dang** – Solution Sales, Noventiq
+*	**Nghi Danh** – AI Engineer, Renova Cloud
+*	**Kiet Tran** – AI Engineer, AWS Student Builder Group
+*	**Bao Phan** – Cloud Engineer, Cloud Kinetics
+*	**Nguyen Nguyen** – Cloud Engineer, Cloud Kinetics
+*	**Toan Nguyen** – AWS Security Builder
 
-### III. Tổng hợp nội dung nổi bật từ các phiên chia sẻ
+### Nội Dung Nổi Bật
 
-#### 1. Context Is Everything: Making AI Actually Work for You
+#### 1. Cloud, AI và Cơ Hội Nghề Nghiệp
+*	Chia sẻ hành trình nghề nghiệp từ Developer đến Solution Architect.
+*	Phân tích sự phát triển của Cloud Computing tại Việt Nam và trên thế giới.
+*	Tác động của AI đối với thị trường lao động ngành công nghệ.
+*	Tầm quan trọng của việc học tập liên tục và tích lũy kinh nghiệm thực tế từ sớm.
+*	AI không thay thế hoàn toàn kỹ sư công nghệ, nhưng sẽ thay đổi cách làm việc của họ.
 
-Phiên thảo luận này đã thay đổi hoàn toàn góc nhìn khi nhận ra rằng một hệ thống AI chỉ thực sự mang lại giá trị khi được đặt vào một **ngữ cảnh (Context)** rõ ràng và đầy đủ. Diễn giả đã mổ xẻ nhiều tình huống thực tế mà AI đưa ra câu trả lời mơ hồ, sai lệch do người dùng đưa ra những câu lệnh (Prompt) quá chung chung và thiếu thông tin đầu vào.
+#### 2. Agentic AI trong Vận Hành Hệ Thống
+**Những vấn đề của hệ thống hiện đại:**
+*	Hệ thống ngày càng phức tạp khi chuyển sang Microservices.
+*	Khối lượng log, monitoring và observability tăng nhanh.
+*	Thời gian điều tra và xử lý sự cố kéo dài.
+*	Chi phí vận hành hạ tầng ngày càng lớn.
 
-Điểm nhấn ấn tượng nhất là khái niệm **"Second AI Brain"** – ý tưởng về một trợ lý ảo thông minh có khả năng ghi nhớ dài hạn, hiểu sâu sắc thói quen người dùng để đồng hành liên tục thay vì chỉ phản hồi ngắt quãng theo từng câu lệnh đơn lẻ. Bên cạnh đó, các phương pháp tối ưu hóa **Context Engineering** và thiết lập bộ nhớ (Memory) cũng được giới thiệu chi tiết, mở ra hướng đi mới cho việc phát triển các ứng dụng AI Agent thông minh.
+**Giải pháp Agentic Platform:**
+*	Tự động điều tra sự cố (Incident Investigation).
+*	Hỗ trợ tối ưu chi phí Cloud (FinOps).
+*	Hỗ trợ kiểm thử bảo mật (Security Testing).
+*	Tăng tốc quá trình xử lý sự cố và nâng cao năng suất của đội ngũ vận hành.
 
-#### 2. Friendly AI Assistant with Amazon Quick
+#### 3. Voice AI và AI Agent
+**Kiến trúc Voice AI:**
+*	Speech-to-Speech Architecture.
+*	Luồng xử lý: Speech-to-Text → LLM → Text-to-Speech.
+*	Ứng dụng Voice Agent trong doanh nghiệp.
 
-Em được tiếp cận toàn diện với bộ công cụ **Amazon Quick** và chứng kiến sức mạnh của AI trong việc khai thác, quản trị dữ liệu doanh nghiệp. Các tính năng cốt lõi:
+**Demo thực tế:**
+*	Xây dựng Voice Assistant trên Amazon Bedrock.
+*	Sử dụng Knowledge Base để cung cấp kiến thức chuyên ngành cho AI.
+*	Tích hợp AI Agent để trả lời các câu hỏi về sản phẩm một cách tự động.
 
-- **Quick Chat Agent**: Tương tác và truy vấn trực tiếp các hệ thống dữ liệu phức tạp bằng ngôn ngữ tự nhiên
-- **Quick Flows**: Tự động hóa quy trình làm việc (Workflow) linh hoạt, không đòi hỏi kỹ năng lập trình (No-code)
-- **Quick Spaces**: Không gian tập trung lưu trữ, quản lý và chia sẻ tri thức nội bộ an toàn
-- **Quick Sight**: Chuyển đổi dữ liệu thô thành báo cáo và Dashboard trực quan nhờ AI
+**Thách thức:**
+*	Tiếng Việt là ngôn ngữ có ít dữ liệu huấn luyện (Low-resource Language).
+*	Cần xây dựng thêm bộ dữ liệu và mô hình phù hợp cho thị trường Việt Nam.
 
-Chủ đề này chứng minh AI không chỉ là trợ thủ cho lập trình viên mà còn là công cụ chiến lược cho các nhà quản trị phân tích số liệu.
+#### 4. AWS DevOps Agent
+**Những vấn đề thường gặp:**
+*	Log và tracing phân tán ở nhiều hệ thống.
+*	Thời gian tìm nguyên nhân sự cố kéo dài.
+*	Khó khăn trong việc tổng hợp ngữ cảnh hệ thống.
 
-#### 3. From Edge To Origin: CloudFront as Your Foundation
+**AWS DevOps Agent cung cấp:**
+*	Context Learning.
+*	Memory và Skill Learning.
+*	Integration với CloudWatch, Slack, ServiceNow.
+*	Hỗ trợ điều tra nguyên nhân gốc (Root Cause Analysis).
+*	Đề xuất giải pháp khắc phục và cải thiện hệ thống.
 
-Vai trò của mạng lưới phân phối nội dung (CDN) được làm rõ thông qua dịch vụ **Amazon CloudFront** trong việc tối ưu hóa hiệu năng ứng dụng:
+**Quy trình hoạt động:**
+1.	Trigger sự cố.
+2.	Phân loại và điều tra.
+3.	Đề xuất phương án xử lý.
+4.	Đề xuất cải tiến lâu dài.
 
-- Giảm thiểu tối đa độ trễ phản hồi (Latency) và tăng tốc độ tải trang toàn cầu
-- Tiết kiệm chi phí băng thông nhờ hệ thống Cache phân tán tại các Edge Location
-- Nâng cao bảo mật thông qua HTTPS bắt buộc và tích hợp tường lửa AWS WAF
-- Cải thiện tính sẵn sàng và khả năng chịu tải trước lượng truy cập đột biến
+#### 5. AI Trong Quản Trị Nhân Sự
+**Những khó khăn của HR:**
+*	Sàng lọc CV mất nhiều thời gian.
+*	Khó đánh giá chất lượng ứng viên.
+*	Khó giữ chân nhân sự giỏi.
+*	Tăng workload cho đội ngũ hiện tại khi tuyển sai người.
 
-Nội dung này cực kỳ thực tế — em có thể đối chiếu và tìm hướng áp dụng trực tiếp vào dự án **ZeroBug Agent** đang xây dựng.
+**Giải pháp AI:**
+*	Tự động phân tích hồ sơ ứng viên.
+*	Tạo dữ liệu hỗ trợ tuyển dụng.
+*	Đưa ra các insight về nhân sự.
+*	Hỗ trợ xây dựng chiến lược nhân sự hiệu quả hơn.
 
-#### 4. 36 hrs with LotusHacks – Building UTMorpho from Idea to Reality
+### Những Gì Học Được
 
-Đại diện **Team VIB** tái hiện hành trình biến một ý tưởng sơ khai thành sản phẩm hoàn chỉnh chỉ trong 36 giờ tại cuộc thi Hackathon. Những bài học quý giá:
+#### Về Tư Duy Công Nghệ
+*	AI đang thay đổi mạnh mẽ cách xây dựng và vận hành phần mềm.
+*	Cloud và AI là hai xu hướng công nghệ quan trọng trong tương lai.
+*	Học tập liên tục và chủ động thích nghi là yếu tố quyết định sự phát triển nghề nghiệp.
 
-- Phát hiện ý tưởng dựa trên việc giải quyết các nỗi đau (Pain points) thực tế của xã hội
-- Tinh thần đồng đội và kỹ năng phối hợp làm việc nhóm dưới áp lực thời gian cực lớn
-- Nghệ thuật quản lý thời gian, chia nhỏ task và phân bổ nguồn lực hợp lý
+#### Về Kiến Trúc Hệ Thống
+*	Hiểu được vai trò của Agentic AI trong vận hành hệ thống.
+*	Nắm được quy trình xử lý sự cố bằng DevOps Agent.
+*	Hiểu cách xây dựng Voice AI và AI Agent trên AWS.
 
-#### 5. Non-Determinism of "Deterministic" LLM Settings
+#### Về Ứng Dụng Thực Tiễn
+*	Có thể áp dụng AI Agent vào giám sát và vận hành hệ thống.
+*	Tìm hiểu cách xây dựng chatbot và voice assistant sử dụng Amazon Bedrock.
+*	Hiểu cách tích hợp AI vào quy trình DevOps và quản trị doanh nghiệp.
 
-Phiên chuyên sâu làm sáng tỏ bản chất bên dưới của các LLM trong việc tính toán xác suất để lựa chọn từ ngữ (Token) tiếp theo. Diễn giả giải mã nghịch lý: tại sao ngay cả khi cấu hình **Temperature = 0**, hệ thống vẫn có thể trả về kết quả khác nhau giữa các lần chạy. Các yếu tố ảnh hưởng:
+### Ứng Dụng Vào Công Việc
+*	Nghiên cứu tích hợp AI Agent vào hệ thống quản trị và giám sát.
+*	Tìm hiểu Amazon Bedrock để xây dựng chatbot cho dự án.
+*	Áp dụng các công cụ AI hỗ trợ phát triển và vận hành phần mềm.
+*	Tận dụng AI để tăng năng suất trong quá trình phát triển ứng dụng.
+*	Nâng cao kỹ năng Cloud và DevOps để đáp ứng nhu cầu tuyển dụng trong tương lai.
 
-- Nguyên nhân khách quan cấu thành nên tính không xác định của mô hình
-- Sự tác động từ quá trình tối ưu hóa phần cứng và thuật toán suy luận
-- Các kỹ thuật thực tế giúp kiểm soát và giảm thiểu sự sai lệch khi phát triển sản phẩm AI
+### Trải Nghiệm Trong Sự Kiện
+Tham gia FCAJ Community Day June 2026 là một trải nghiệm rất ý nghĩa, giúp tôi có cơ hội tiếp cận những xu hướng công nghệ mới nhất về Cloud Computing, AI Agent và DevOps hiện đại. Tôi đặc biệt ấn tượng với các phiên chia sẻ về Agentic AI và AWS DevOps Agent, bởi những công nghệ này đang mở ra nhiều cơ hội mới trong việc tự động hóa vận hành hệ thống.
 
-#### 6. Enterprise-Grade Multi-Agent System: The Case of Startup Credit Scoring
+Ngoài ra, sự kiện còn mang đến cơ hội giao lưu với các chuyên gia trong ngành, giúp tôi hiểu rõ hơn về yêu cầu của doanh nghiệp đối với kỹ sư Cloud và AI trong tương lai. Những kiến thức và kinh nghiệm học được từ workshop sẽ là nền tảng quan trọng để tôi tiếp tục nghiên cứu và áp dụng vào các dự án thực tế của bản thân.
 
-Phiên cuối giới thiệu kiến trúc **Multi-Agent (Đa trợ lý AI)** áp dụng vào bài toán thẩm định, đánh giá rủi ro tín dụng cho startup. Mô hình **"Virtual Credit Committee"** khiến em rất tâm đắc — nhiều AI Agent chuyên biệt cùng thảo luận, phản biện để đưa ra quyết định cuối cùng thay vì phụ thuộc vào một mô hình đơn lẻ. Phiên này còn cung cấp góc nhìn thực tế về bảo mật thông tin trong ngành tài chính – ngân hàng, khả năng đưa Multi-Agent vào môi trường sản xuất và tối ưu hóa chi phí vận hành.
-
-### IV. Tổng hợp những kiến thức và kỹ năng ghi nhận được
-
-#### Về mặt Tư duy AI
-
-- **Context** là yếu tố sống còn quyết định độ chính xác của hệ thống AI
-- Sự dịch chuyển từ Prompt Engineering sang **Context Engineering & Memory**
-- **Multi-Agent System** là xu hướng tất yếu của ứng dụng AI quy mô doanh nghiệp
-
-#### Về mặt Kiến trúc Kỹ thuật
-
-- Nắm vững nguyên lý và vai trò của **Amazon CloudFront** trong tối ưu tốc độ và bảo mật
-- Định hình sơ đồ kiến trúc AI Agent đơn lẻ và hệ thống **Multi-Agent**
-- Tiếp thu bản chất xác suất về tính không xác định của các mô hình LLM
-
-#### Về mặt Kỹ năng Phát triển Sản phẩm
-
-- Tư duy thiết kế sản phẩm tinh gọn theo hướng **MVP (Minimum Viable Product)**
-- Nâng cao nhận thức về kỹ năng cộng tác, làm việc nhóm và quản trị thời gian
-- Biết cách kết hợp nhịp nhàng giữa công nghệ AI và hạ tầng Cloud để giải quyết bài toán thực tiễn
-
-### V. Định hướng ứng dụng vào học tập và công việc
-
-- Nghiên cứu và tích hợp **Amazon CloudFront** vào hệ thống dự án ZeroBug Agent nhằm tăng tốc độ phản hồi và gia cố tường lửa bảo vệ
-- Chủ động tìm hiểu kiến trúc AI Agent để xây dựng các ứng dụng Multi-Agent nhỏ phục vụ đề tài cá nhân
-- Triển khai áp dụng chặt chẽ kỹ thuật **Context Engineering** vào các ứng dụng Generative AI đang phát triển
-- Thử nghiệm sử dụng các công cụ phân tích tích hợp AI của AWS để xây dựng Dashboard theo dõi tiến độ công việc
-
-### VI. Trải nghiệm thực tế tại sự kiện
-
-#### Cơ hội học hỏi từ những người đi trước
-
-Các diễn giả không chỉ mang đến kiến thức chuyên môn mà lồng ghép nhiều câu chuyện thực tế, tư duy làm sản phẩm và lời khuyên định hướng nghề nghiệp. Điều này giúp em có cái nhìn toàn cảnh và thực tế hơn về bức tranh ngành Cloud và AI hiện nay.
-
-#### Cơ hội tiếp cận công nghệ đỉnh cao
-
-Sự kiện quy tụ những khái niệm tân tiến nhất: **Multi-Agent, AI Agent, Amazon Quick, Amazon CloudFront** — đều là công nghệ lõi đang được các tập đoàn lớn rốt ráo đưa vào vận hành.
-
-#### Kết nối và mở rộng mạng lưới (Networking)
-
-Em đã có cơ hội gặp gỡ, trò chuyện cùng các chuyên gia, các anh chị đi trước và những người bạn có cùng đam mê công nghệ, mở rộng mối quan hệ và cơ hội phát triển nghề nghiệp trong tương lai.
-
-### VII. Bài học rút ra sau sự kiện
-
-Bài học lớn nhất là tốc độ thay đổi chóng mặt của thế giới công nghệ — nếu không chủ động tự học và cập nhật liên tục, chúng ta sẽ rất nhanh bị tụt hậu. AI dù thông minh đến đâu cũng chỉ phát huy tối đa sức mạnh khi được cung cấp nền tảng dữ liệu sạch và ngữ cảnh trọn vẹn. Xu hướng dịch chuyển sang **Multi-Agent** chứng minh tương lai thuộc về sự phối hợp thông minh của các hệ thống tự động. Bên cạnh việc mài dũa chuyên môn, tích cực tham gia cộng đồng và không ngừng tò mò đón nhận cái mới chính là chìa khóa nâng cao năng lực trong kỷ nguyên Cloud & AI.
-
-#### Một số hình ảnh khi tham gia sự kiện
-
-*Thêm các hình ảnh của bạn tại đây*
+### Bài Học Rút Ra
+*	AI không thay thế hoàn toàn con người mà đóng vai trò hỗ trợ và khuếch đại năng lực của kỹ sư.
+*	Cloud, DevOps và AI đang dần hội tụ để tạo ra các hệ thống tự động và thông minh hơn.
+*	Cần chủ động học hỏi, tích lũy kinh nghiệm thực tế và sử dụng AI như một công cụ hỗ trợ công việc.
+*	Việc hiểu rõ business domain và nhu cầu doanh nghiệp là yếu tố quan trọng để xây dựng các giải pháp công nghệ hiệu quả.
