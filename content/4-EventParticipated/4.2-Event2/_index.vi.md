@@ -11,7 +11,7 @@ pre: " <b> 4.2. </b> "
 # Bài thu hoạch sự kiện "FCAJ Community Day"
 
 **Chủ đề: Ứng Dụng AI Trong Vận Hành và Tối Ưu Hóa Doanh Nghiệp**
-
+![FCAJ Community Day Group Photo](/images/event.jpg)
 ### Mục Đích Của Sự Kiện
 *	Giới thiệu các giải pháp AI tự động hóa vận hành hệ thống (Deep Response Engine, DevOps Agent).
 *	Trình bày công nghệ xây dựng AI hội thoại có khả năng tương tác tự nhiên như người thật (Voice Agents).

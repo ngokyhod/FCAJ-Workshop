@@ -11,7 +11,7 @@ pre: " <b> 4.2. </b> "
 # Summary Report: "FCAJ Community Day"
 
 **Theme: AI Applications in Enterprise Operations and Optimization**
-
+![FCAJ Community Day Group Photo](/images/event.jpg)
 ### Event Objectives
 
 *	Introduce AI solutions for automating system operations (Deep Response Engine, DevOps Agent).
