@@ -27,7 +27,10 @@ chapter: false
 
 &emsp; **Internship Position:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Internship Duration:** From 20/04/2026 to 12/07/2026
+&emsp; **Internship Duration:** From 17/04/2026 to 30/07/2026
+
+> 🌐 **Live Project:** [ZeroBug Agent - Automated AI Unit Test Platform](http://54.179.132.145:8080)
+> *(The application is deployed on AWS EC2 infrastructure, integrated with Amazon S3, RDS, and Serverless Lambdas.)*
 
 ![Your profile picture](/images/ngokyhoa.jpg)
 

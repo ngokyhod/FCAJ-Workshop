@@ -43,6 +43,18 @@ Parameters from the [shared table](../5.2-prerequisites/5.2.3-parameter-table/):
 - [x] **Generate Test** → Step Functions **Succeeded**; Unit Test result shown in UI
 - [x] `GET /api/aws/status` reports RDS, S3, Bedrock Mantle OK
 
+#### System demo
+
+| | Content |
+| --- | --- |
+| **Web access URL** | [ZeroBug-Agent Web](http://54.179.132.145:8080/) |
+| **Demo video** | Watch below or download [Demo.mp4](/videos/Demo.mp4) |
+
+<video controls width="100%" style="max-width: 960px; border-radius: 8px;">
+  <source src="/videos/Demo.mp4" type="video/mp4">
+  Your browser does not support video playback. Download at <a href="/videos/Demo.mp4">/videos/Demo.mp4</a>.
+</video>
+
 #### Content
 
 1. [Checklist by member](5.8.1-checklist/)

@@ -6,6 +6,10 @@ chapter: false
 pre: " <b> 5.8.3. </b> "
 ---
 
+---
+
+**Demo:** Web URL and walkthrough video — see or [5.8 — System demo](../).
+
 1. Sign in Cognito.
 2. Import project (Git/Zip) → Step Functions → **`ProjectImportLambda`** → S3; **`ContextBuilderLambda`** chunk + embed → pgvector **`code_embeddings`** on RDS.
 3. Open IDE — browse folder tree.

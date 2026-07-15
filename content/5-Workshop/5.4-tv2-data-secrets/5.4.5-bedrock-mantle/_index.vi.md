@@ -17,7 +17,9 @@ pre: " <b> 5.4.5. </b> "
 {{% notice info %}}
 Workshop triển khai VPC/Lambda ở **`ap-southeast-1`**, nhưng gọi inference (suy luận AI) thông qua **`bedrock-mantle.us-east-1.api.aws`** — **xuyên vùng (cross-region)**. Ghi chép rõ điều này vào [bảng tham số](../../5.2-prerequisites/5.2.3-parameter-table/).
 {{% /notice %}}
+
 ![](/images/5-Workshop/5.4/30.png)
+
 #### Bước 2 — Tham số bàn giao cho Hoa
 
 | Tham số | Giá trị |

@@ -17,7 +17,9 @@ pre: " <b> 5.4.5. </b> "
 {{% notice info %}}
 The workshop deploys VPC/Lambda in **`ap-southeast-1`**, but calls inference via **`bedrock-mantle.us-east-1.api.aws`** — **cross-region**. Record this clearly in the [parameter table](../../5.2-prerequisites/5.2.3-parameter-table/).
 {{% /notice %}}
+
 ![](/images/5-Workshop/5.4/30.png)
+
 #### Step 2 — Handoff parameters for Hoa
 
 | Parameter | Value |

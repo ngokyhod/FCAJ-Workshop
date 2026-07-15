@@ -43,6 +43,18 @@ Tham số lấy từ [bảng chung](../5.2-prerequisites/5.2.3-parameter-table/)
 - [x] **Generate Test** → Step Functions **Succeeded**; kết quả Unit Test hiển thị trên UI
 - [x] `GET /api/aws/status` báo RDS, S3, Bedrock Mantle OK
 
+#### Demo hệ thống
+
+| | Nội dung |
+| --- | --- |
+| **Link truy cập web** | [ZeroBug-Agent Web](http://54.179.132.145:8080/) |
+| **Video demo** | Xem bên dưới hoặc tải [Demo.mp4](/videos/Demo.mp4) |
+
+<video controls width="100%" style="max-width: 960px; border-radius: 8px;">
+  <source src="/videos/Demo.mp4" type="video/mp4">
+  Trình duyệt không hỗ trợ phát video. Tải file tại <a href="/videos/Demo.mp4">/videos/Demo.mp4</a>.
+</video>
+
 #### Nội dung
 
 1. [Checklist theo thành viên](5.8.1-checklist/)

@@ -6,6 +6,10 @@ chapter: false
 pre: " <b> 5.8.3. </b> "
 ---
 
+---
+
+**Demo:** Truy cập web và video minh họa các bước dưới — xem [5.8 — Demo hệ thống](../).
+
 1. Đăng nhập Cognito.
 2. Import project (Git/Zip) → Step Functions → **`ProjectImportLambda`** → S3; **`ContextBuilderLambda`** chunk + embed → pgvector **`code_embeddings`** trên RDS.
 3. Mở IDE — duyệt cây thư mục.

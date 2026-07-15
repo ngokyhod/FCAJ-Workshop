@@ -1,64 +1,69 @@
 ﻿---
-title: "Dọn dẹp tài nguyên – Hoa"
-date: 2026-07-03
+title: "Dọn tài nguyên - Hoa"
+date: 2024-01-01
 weight: 2
 chapter: false
 pre: " <b> 5.10.2. </b> "
 ---
 
-Sau khi đã hoàn thành nghiệm thu hệ thống, chúng ta cần tiến hành dọn dẹp (Cleanup) các tài nguyên Serverless đã tạo để tránh phát sinh chi phí lưu trữ và vận hành ngoài ý muốn. Hãy thực hiện tuần tự theo các bước dưới đây.
+Xóa **Step Functions** trước **Lambda** (state machine tham chiếu Lambda). Xóa **CloudWatch Log groups** của Lambda sau cùng trong mục này.
 
-#### Bước 1 — Xóa các hàm Lambda (5 hàm)
+Tên function theo [bảng tham số](../../5.2-prerequisites/5.2.3-parameter-table/) — **PascalCase**, không dùng prefix `zerobug-` cho Lambda.
 
-Chúng ta sẽ tiến hành xóa toàn bộ 5 hàm Lambda đã tạo trong bài 5.6. Danh sách các hàm cần xóa bao gồm:
+#### Bước 1 — Step Functions State Machine
 
-* `ProjectImportLambda`
-* `FileTreeLambda`
-* `RagContextLambda`
-* `BedrockInvokeLambda`
-* `ResultAndHistoryLambda`
+1. **Step Functions** → **State machines**.
+2. Chọn state machine ZeroBug (ví dụ `zerobug-workflow` hoặc tên nhóm đã đặt).
+3. **Stop** mọi execution đang **Running** (tab **Executions**).
+4. **Delete state machine**.
 
-**Thao tác thực hiện:**
-1. Truy cập dịch vụ **Lambda** → chọn **Functions**.
-2. Tại danh sách hàm, tích chọn hàm cần xóa (ví dụ `alllambda` hoặc các hàm của dự án).
-3. Nhấn vào nút **Actions** (Hành động) ở góc trên bên phải → chọn **Delete** (Xóa).
+#### Bước 2 — Lambda Functions (6 function)
 
-![](/images/5-Workshop/5.6/33.png)
+**Lambda** → **Functions** — xóa lần lượt:
 
-4. Một bảng cảnh báo sẽ hiện ra. Bạn cần gõ chữ `confirm` vào ô trống để xác nhận việc xóa vĩnh viễn mã nguồn và cấu hình của hàm này. Nhấn **Delete** để hoàn tất.
+| Function | Ghi chú |
+| --- | --- |
+| `ProjectImportLambda` | Project Import |
+| `SourceFileServiceLambda` | Source File Service |
+| `ContextBuilderLambda` | Context Builder + RAG embed/retrieve |
+| `BedrockInvokeLambda` | AI Invoke (Bedrock Mantle chat) |
+| `ResultServiceLambda` | Result Service |
+| `HistoryServiceLambda` | History Service |
 
-![](/images/5-Workshop/5.6/34.png)
+Với từng function:
 
-*(Lặp lại thao tác trên cho đến khi xóa sạch cả 5 hàm Lambda của dự án).*
+1. **Configuration** → **Triggers** → gỡ mọi trigger (nếu có).
+2. **Actions** → **Delete** → gõ `delete` xác nhận.
 
-#### Bước 2 — Dọn dẹp nhật ký CloudWatch Logs
+{{% notice tip %}}
+Nếu **Delete** báo lỗi do Step Functions: quay lại Bước 1, đảm bảo state machine đã xóa.
+{{% /notice %}}
 
-Khi bạn xóa hàm Lambda, các file nhật ký (Log) của nó vẫn tiếp tục nằm lại trên hệ thống và tính phí lưu trữ. Do đó, việc dọn dẹp CloudWatch là bắt buộc.
+#### Bước 3 — Lambda Layers / Versions (nếu có)
 
-1. Truy cập dịch vụ **CloudWatch** trên AWS Console.
-2. Ở thanh menu bên trái, tìm mục **Logs** → Chọn **Log Management** (hoặc Log groups).
+1. **Lambda** → **Layers** — xóa layer custom ZeroBug (nếu tạo).
+2. Tab **Versions** trên từng function — thường tự xóa khi delete function.
 
-![](/images/5-Workshop/5.6/35.png)
+#### Bước 4 — CloudWatch Log groups
 
-3. Tại ô tìm kiếm, gõ tên hàm Lambda (ví dụ: `/aws/lambda/BedrockInvokeLambda`) để lọc ra nhóm log tương ứng. Nhấn vào tên của Log group đó.
+**CloudWatch** → **Log groups** → xóa:
 
-![](/images/5-Workshop/5.6/36.png)
+- `/aws/lambda/ProjectImportLambda`
+- `/aws/lambda/SourceFileServiceLambda`
+- `/aws/lambda/ContextBuilderLambda`
+- `/aws/lambda/BedrockInvokeLambda`
+- `/aws/lambda/ResultServiceLambda`
+- `/aws/lambda/HistoryServiceLambda`
+- `/aws/states/zerobug-workflow` *(hoặc prefix state machine)*
 
-4. Trong giao diện chi tiết, chuyển xuống tab **Log streams**. Tích chọn tất cả các luồng nhật ký (Log streams) đang có mặt.
-5. Nhấn nút **Delete** ở thanh công cụ phía trên danh sách.
+#### Bước 5 — EventBridge / SNS (nếu Hoa tạo thêm)
 
-![](/images/5-Workshop/5.6/37.png)
+Xóa rule/schedule test invoke Lambda (nếu có trong workshop mở rộng).
 
-6. Xác nhận xóa toàn bộ các luồng log này bằng cách nhấn **Delete** ở bảng thông báo hiện ra. 
+#### Checklist xác nhận
 
-![](/images/5-Workshop/5.6/38.png)
+- [ ] Không còn state machine ZeroBug
+- [ ] Không còn 6 Lambda function
+- [ ] Log groups Lambda/Step Functions đã xóa
 
-> 💡 **Mẹo:** Thay vì xóa từng Log stream, bạn cũng có thể chọn trực tiếp các **Log groups** ở màn hình ngoài (hình 36), chọn **Actions** → **Delete log group(s)** để dọn dẹp nhanh và triệt để hơn. Hãy làm tương tự cho tất cả 5 nhóm log của 5 hàm Lambda.
-
-#### Danh sách kiểm tra nghiệm thu (Checklist)
-
-- [ ] Đã xóa sạch 5 hàm Lambda.
-- [ ] Đã xóa/làm sạch toàn bộ Log groups trong CloudWatch.
-- [ ] (Tùy chọn) Truy cập Step Functions và xóa State Machine `ZeroBug-Workflow` nếu bạn là người khởi tạo.
-
-→ Tiếp theo: [Toàn — Dọn dẹp EC2 & RDS](5.10.3-toan/)
+→ Tiếp: [Toàn — EC2 & ALB](5.10.3-toan/)
